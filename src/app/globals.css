@@ -39,6 +39,38 @@
     font-family: var(--font-sans);
   }
 
+  /* Quebra de linha: títulos equilibrados e parágrafos sem palavra
+     solitária na última linha (UI/UX Pro Max, "Heading Line Balance"). */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  /* O Tailwind 4 tira o cursor de clique dos botões; aqui ele volta. */
+  button:not(:disabled),
+  select,
+  summary,
+  label:has(> input[type="checkbox"]),
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+
+  /* Mudanças de cor no hover e no foco com transição curta, em vez de salto. */
+  @media (prefers-reduced-motion: no-preference) {
+    a,
+    button {
+      transition-property: color, background-color, border-color, opacity;
+      transition-duration: 200ms;
+      transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+    }
+  }
+
   ::selection {
     background-color: var(--color-champagne);
     color: var(--color-grafite);
@@ -125,7 +157,9 @@
 /* Botões: escala de 0,98 ao pressionar. */
 @utility botao-pressionavel {
   @media (prefers-reduced-motion: no-preference) {
-    transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+    transition-property: transform, color, background-color, border-color;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
 
     &:active {
       transform: scale(0.98);

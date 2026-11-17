@@ -8,7 +8,7 @@ import { Moldura } from "./Moldura";
 import { RetratoCena } from "./movimento/RetratoCena";
 
 export const Advogada = () => (
-  <section id="advogada" className="bg-branco py-24 lg:py-40">
+  <section id="advogada" className="bg-branco py-24 lg:py-36">
     <div className="container-site">
       <div className="grid gap-16 lg:grid-cols-12 lg:gap-8">
         <RetratoCena className="lg:col-span-5">

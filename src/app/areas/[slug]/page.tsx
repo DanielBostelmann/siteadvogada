@@ -125,7 +125,7 @@ export default async function PaginaArea({
           >
             {paginaArea.comoAtua.titulo}
           </h2>
-          <ul data-revelar-grupo className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
+          <ul data-revelar-grupo className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-8">
             {paginaArea.comoAtua.blocos.map((bloco) => (
               <li key={bloco.chave} className="border-t border-dourado pt-6">
                 <h3 className="rotulo">{bloco.titulo}</h3>

@@ -8,7 +8,7 @@ export const Escritorio = () => {
   const [abertura, ...demais] = escritorio.paragrafos;
 
   return (
-    <section id="escritorio" className="bg-branco py-24 lg:py-40">
+    <section id="escritorio" className="bg-branco py-24 lg:py-36">
       <div className="container-site grid gap-16 lg:grid-cols-12 lg:gap-8">
         <PalavraPorPalavra className="lg:col-span-7">
           <h2 data-revelar className="rotulo">
