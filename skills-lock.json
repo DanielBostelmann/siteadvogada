@@ -257,6 +257,14 @@
       "computedHash": "782fcf46450fc859611c2466f744df02bc890b3f88459f8489031b0752d8731b",
       "installMode": "copy"
     },
+    "scroll-craft": {
+      "source": "nateherkai/scroll-craft",
+      "commit": "75d81f74e83692add18cd7a8a8e078b8a887a579",
+      "sourceType": "github",
+      "skillPath": "plugins/nateherk-design/skills/scroll-craft/SKILL.md",
+      "computedHash": "313906594cddf8d38d2d5cd3eda0436d7f4c912808d5255e1d579fcb8b8befaf",
+      "installMode": "copy"
+    },
     "slideshow": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
