@@ -2,3 +2,6 @@
 # Para recuperar: npx skills add feitangyuan/onetake --skill onetake --agent claude-code --copy -y
 .claude/skills/onetake/**/*.mp4
 .claude/skills/onetake/**/*.gif
+
+# Credenciais da HostGator criadas pela skill site-de-10k (login do cPanel). Nunca commitar.
+hostgator.env
