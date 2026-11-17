@@ -41,7 +41,7 @@ export default async function PaginaArea({
   return (
     <article>
       <header className="relative isolate bg-branco pt-16 lg:pt-20">
-        <div className="grao relative aspect-[4/3] max-h-[72svh] w-full overflow-hidden sm:aspect-[21/9]">
+        <div className="grao relative aspect-[5/4] max-h-[72svh] w-full overflow-hidden sm:aspect-[21/9]">
           <Image
             src={area.imagem.src}
             alt={area.imagem.alt}
@@ -68,7 +68,7 @@ export default async function PaginaArea({
                 {area.numero}
               </span>
               {area.selo ? (
-                <span className="rotulo rounded-moldura border border-dourado bg-branco/70 px-2.5 py-1 text-[0.6875rem]">
+                <span className="rotulo rounded-moldura border border-dourado bg-branco/70 px-2.5 py-1 text-xs">
                   {area.selo}
                 </span>
               ) : null}

@@ -18,16 +18,17 @@ export const Hero = () => (
     className="relative overflow-hidden bg-linear-to-b from-branco to-off-white"
   >
     <HeroCena className="relative flex min-h-svh flex-col">
-      {/* Filete dourado vertical, que cresce com a rolagem no computador. */}
-      <span
-        aria-hidden="true"
-        data-hero="filete"
-        className="absolute top-28 bottom-8 left-[clamp(0.625rem,2.5vw,2.25rem)] hidden w-px origin-top bg-dourado lg:block"
-      />
-
       {/* Celular: texto e identificação ocupam a primeira tela e a foto vem
           em seguida. Computador: texto e foto lado a lado, identificação ao pé. */}
-      <div className="container-site grid flex-1 grid-cols-1 pt-28 pb-12 lg:grid-cols-12 lg:grid-rows-[1fr_auto] lg:gap-x-8 lg:pb-0">
+      <div className="container-site relative grid flex-1 grid-cols-1 pt-28 pb-12 lg:grid-cols-12 lg:grid-rows-[1fr_auto] lg:gap-x-8 lg:pb-0">
+        {/* Filete dourado vertical, que cresce com a rolagem no computador.
+            Fica 2rem à esquerda do conteúdo, acompanhando a margem do
+            container em qualquer largura de tela. */}
+        <span
+          aria-hidden="true"
+          data-hero="filete"
+          className="absolute top-28 bottom-8 left-[calc(clamp(1.25rem,5vw,4.5rem)-2rem)] hidden w-px origin-top bg-dourado lg:block"
+        />
         <div
           data-hero="coluna-texto"
           className="flex min-h-[calc(100svh-12rem)] flex-col justify-center lg:col-span-7 lg:row-start-1 lg:min-h-0"
@@ -79,12 +80,18 @@ export const Hero = () => (
         <div
           data-entrada="sobe"
           style={ordem(5)}
-          className="flex h-20 items-center justify-between gap-6 pr-16 lg:col-span-12 lg:row-start-2 lg:h-24 xl:pr-0"
+          className="relative flex h-20 items-center pr-16 sm:pr-0 lg:col-span-12 lg:row-start-2 lg:h-24"
         >
+          {/* No celular, pr-16 reserva o canto do botão flutuante do WhatsApp. */}
           <p className="rotulo">
-            {site.nome} · {site.oab}
+            {site.nome} ·{" "}
+            <span className="whitespace-nowrap">{site.oab}</span>
           </p>
-          <p aria-hidden="true" className="rotulo hidden items-center gap-3 sm:flex">
+          {/* Indicador de rolagem ao centro, longe do botão flutuante. */}
+          <p
+            aria-hidden="true"
+            className="rotulo absolute left-1/2 hidden -translate-x-1/2 items-center gap-3 sm:flex"
+          >
             Role
             <span className="block h-10 w-px bg-dourado" />
           </p>

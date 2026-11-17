@@ -147,7 +147,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
                 onMouseEnter={() => ativar(indice)}
                 onFocus={() => ativar(indice)}
                 data-ativa={estaAtiva}
-                className="group block lg:py-8"
+                className="group block lg:py-6"
               >
                 {/* Celular e tablet: cartão com a imagem da área. */}
                 <span
@@ -171,13 +171,13 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
                         {area.nome}
                       </h3>
                       {area.selo ? (
-                        <span className="rotulo rounded-moldura border border-dourado px-2.5 py-1 text-[0.6875rem]">
+                        <span className="rotulo rounded-moldura border border-dourado px-2.5 py-1 text-xs">
                           {area.selo}
                         </span>
                       ) : null}
                     </span>
 
-                    <ul className="mt-4 space-y-1.5 text-[0.9375rem] leading-relaxed text-grafite/75 motion-safe:transition-opacity motion-safe:duration-500 lg:opacity-0 lg:group-data-[ativa=true]:opacity-100 lg:[@media(hover:none)]:opacity-100">
+                    <ul className="mt-3 space-y-1.5 text-[0.9375rem] leading-relaxed text-grafite/75 motion-safe:transition-opacity motion-safe:duration-500 lg:opacity-0 lg:group-data-[ativa=true]:opacity-100 lg:[@media(hover:none)]:opacity-100">
                       {area.servicos
                         .slice(0, SERVICOS_EM_DESTAQUE)
                         .map((servico) => (

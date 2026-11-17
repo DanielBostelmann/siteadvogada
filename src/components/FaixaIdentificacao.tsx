@@ -10,12 +10,12 @@ export const FaixaIdentificacao = () => (
 
     <ul
       data-revelar-grupo
-      className="container-site grid divide-y divide-dourado/40 md:grid-cols-3 md:divide-x md:divide-y-0"
+      className="container-site grid divide-y divide-dourado/40 lg:grid-cols-3 lg:divide-x lg:divide-y-0"
     >
       {identificacao.map((item) => (
         <li
           key={item.destaque}
-          className="py-9 md:px-10 md:py-14 md:first:pl-0 md:last:pr-0"
+          className="py-9 lg:px-10 lg:py-14 lg:first:pl-0 lg:last:pr-0"
         >
           <p className="font-serif text-[clamp(2rem,3vw,2.75rem)] leading-none font-medium text-grafite">
             {item.destaque}

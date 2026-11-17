@@ -11,6 +11,33 @@ export const IconeWhatsApp = ({ className }: IconeProps) => (
   </svg>
 );
 
+export const IconeCopiar = ({ className }: IconeProps) => (
+  <svg
+    viewBox="0 0 20 20"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.25"
+    aria-hidden="true"
+    className={className}
+  >
+    <rect x="6.5" y="6.5" width="10" height="10" rx="1.5" />
+    <path d="M13.5 6.5V4.75c0-.69-.56-1.25-1.25-1.25h-7.5c-.69 0-1.25.56-1.25 1.25v7.5c0 .69.56 1.25 1.25 1.25H6.5" />
+  </svg>
+);
+
+export const IconeConfirmado = ({ className }: IconeProps) => (
+  <svg
+    viewBox="0 0 20 20"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    aria-hidden="true"
+    className={className}
+  >
+    <path d="m4.5 10.5 3.5 3.5 7.5-8" />
+  </svg>
+);
+
 export const IconeSeta = ({ className }: IconeProps) => (
   <svg
     viewBox="0 0 20 20"

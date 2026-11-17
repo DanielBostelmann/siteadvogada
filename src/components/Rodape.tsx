@@ -19,8 +19,10 @@ const AnoCorrente = async () => {
 
 export const Rodape = () => (
   <footer className="bg-grafite text-off-white">
-    <div className="container-site grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-24">
-      <div className="sm:col-span-2 lg:col-span-3">
+    {/* Duas colunas até 1280 px; a partir daí, quatro colunas com a largura
+        do próprio conteúdo, para nenhum item quebrar linha. */}
+    <div className="container-site grid gap-12 py-16 sm:grid-cols-2 lg:py-24 xl:grid-cols-[repeat(4,auto)] xl:justify-between xl:gap-x-12">
+      <div className="sm:col-span-2 xl:col-span-1">
         <Image
           src="/logo/logo-completa.png"
           alt={site.marcaCurta}
@@ -37,7 +39,7 @@ export const Rodape = () => (
         </p>
       </div>
 
-      <nav aria-label="Rodapé" className="lg:col-span-2 lg:col-start-4">
+      <nav aria-label="Rodapé">
         <h2 className={TITULO_COLUNA}>Navegação</h2>
         <ul className="mt-4">
           {navegacao.map((item) => (
@@ -50,7 +52,7 @@ export const Rodape = () => (
         </ul>
       </nav>
 
-      <nav aria-label="Áreas de atuação" className="lg:col-span-3">
+      <nav aria-label="Áreas de atuação">
         <h2 className={TITULO_COLUNA}>Áreas de atuação</h2>
         <ul className="mt-4">
           {areas.map((area) => (
@@ -63,7 +65,7 @@ export const Rodape = () => (
         </ul>
       </nav>
 
-      <div className="lg:col-span-4">
+      <div>
         <h2 className={TITULO_COLUNA}>Contato</h2>
         <ul className="mt-4">
           <li>
@@ -81,7 +83,7 @@ export const Rodape = () => (
     </div>
 
     <div className="border-t border-off-white/15">
-      <div className="container-site flex flex-col gap-1 py-5 pr-20 text-sm text-off-white/70 sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-site flex flex-col gap-x-8 py-5 pr-20 text-sm text-off-white/70 sm:flex-row sm:items-center">
         <p>
           © <AnoCorrente /> {site.marcaCurta}
         </p>
