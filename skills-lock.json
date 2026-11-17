@@ -41,6 +41,14 @@
       "computedHash": "e5f5ea23a40df5489902439ebc8c6815784c5cea3b9a8391b68eb5db621f0c21",
       "installMode": "copy"
     },
+    "onetake": {
+      "source": "feitangyuan/onetake",
+      "commit": "abb6d17279cdc749e27e99aa534a062d8fd01ced",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "6f86ced042fc602fbd6f873706f6b3860871551f33b0ff76b09cb9f779d7869f",
+      "installMode": "copy"
+    },
     "remotion-best-practices": {
       "source": "remotion-dev/skills",
       "commit": "3e20ac75161bc34468845df714701cc9bf6075f4",

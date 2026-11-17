@@ -1,0 +1,4 @@
+# Vídeos e GIFs de demonstração da skill onetake (~110 MB de vitrine, não usados pela skill).
+# Para recuperar: npx skills add feitangyuan/onetake --skill onetake --agent claude-code --copy -y
+.claude/skills/onetake/**/*.mp4
+.claude/skills/onetake/**/*.gif
