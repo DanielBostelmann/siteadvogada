@@ -121,6 +121,14 @@
       "computedHash": "e5f5ea23a40df5489902439ebc8c6815784c5cea3b9a8391b68eb5db621f0c21",
       "installMode": "copy"
     },
+    "motion-design": {
+      "source": "LottieFiles/motion-design-skill",
+      "commit": "f9a8a041b85185ee4881b3471d3415e939aac772",
+      "sourceType": "github",
+      "skillPath": "skills/motion-design/SKILL.md",
+      "computedHash": "bf661a366f1a51e6ccee48f1b3addbc2e5b1bf69321d99157619fd4a52c1e0d7",
+      "installMode": "copy"
+    },
     "onetake": {
       "source": "feitangyuan/onetake",
       "commit": "abb6d17279cdc749e27e99aa534a062d8fd01ced",
