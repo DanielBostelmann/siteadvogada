@@ -132,8 +132,8 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
   );
 
   return (
-    <div ref={bloco} className="mt-14 lg:mt-20 lg:grid lg:grid-cols-12 lg:gap-8">
-      <ol className="grid gap-12 sm:grid-cols-2 lg:col-span-7 lg:block">
+    <div ref={bloco} className="mt-(--espaco-bloco) lg:grid lg:grid-cols-12 lg:gap-8">
+      <ol className="grid gap-10 sm:grid-cols-2 lg:col-span-7 lg:block">
         {areas.map((area, indice) => {
           const estaAtiva = indice === ativa;
           return (
@@ -167,7 +167,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
                   <span className="rotulo w-7 shrink-0">{area.numero}</span>
                   <span className="min-w-0">
                     <span className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
-                      <h3 className="font-serif text-[clamp(1.75rem,3.1vw,2.875rem)] leading-[1.08] font-medium text-grafite motion-safe:transition-opacity motion-safe:duration-500 lg:opacity-60 lg:group-data-[ativa=true]:opacity-100">
+                      <h3 className="font-serif text-3xl lg:text-bloco leading-[1.08] font-medium text-grafite motion-safe:transition-opacity motion-safe:duration-500 lg:opacity-60 lg:group-data-[ativa=true]:opacity-100">
                         {area.nome}
                       </h3>
                       {area.selo ? (
@@ -177,7 +177,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
                       ) : null}
                     </span>
 
-                    <ul className="mt-3 space-y-1.5 text-[0.9375rem] leading-relaxed text-grafite/75 motion-safe:transition-opacity motion-safe:duration-500 lg:opacity-0 lg:group-data-[ativa=true]:opacity-100 lg:[@media(hover:none)]:opacity-100">
+                    <ul className="mt-3 space-y-1.5 text-base leading-relaxed text-grafite/75 motion-safe:transition-opacity motion-safe:duration-500 lg:opacity-0 lg:group-data-[ativa=true]:opacity-100 lg:[@media(hover:none)]:opacity-100">
                       {area.servicos
                         .slice(0, SERVICOS_EM_DESTAQUE)
                         .map((servico) => (

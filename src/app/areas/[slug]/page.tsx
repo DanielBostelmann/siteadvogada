@@ -73,26 +73,26 @@ export default async function PaginaArea({
                 </span>
               ) : null}
             </p>
-            <h1 className="mt-3 max-w-[16ch] font-serif text-[clamp(2.5rem,6vw,5.5rem)] leading-none font-medium text-balance">
+            <h1 className="mt-3 max-w-[16ch] font-serif text-display leading-none font-medium text-balance">
               {area.nome}
             </h1>
           </div>
         </div>
       </header>
 
-      <section className="bg-branco py-20 lg:py-28">
+      <section className="secao bg-branco">
         <div className="container-site">
           <p
             data-revelar
-            className="max-w-4xl font-serif text-[clamp(1.625rem,2.8vw,2.5rem)] leading-[1.22] text-pretty"
+            className="max-w-4xl font-serif text-destaque leading-[1.22] text-pretty"
           >
             {area.apresentacao}
           </p>
 
-          <div className="mt-20 grid gap-10 lg:mt-28 lg:grid-cols-12 lg:gap-8">
+          <div className="mt-(--espaco-bloco) grid gap-8 lg:grid-cols-12 lg:gap-8">
             <h2
               data-revelar
-              className="font-serif text-[clamp(2rem,3.4vw,3rem)] leading-tight font-medium lg:col-span-4"
+              className="font-serif text-bloco leading-tight font-medium lg:col-span-4"
             >
               {paginaArea.servicos}
             </h2>
@@ -103,7 +103,7 @@ export default async function PaginaArea({
               {area.servicos.map((servico) => (
                 <li
                   key={servico}
-                  className="flex gap-4 border-b border-grafite/15 py-5 text-[1.0625rem] leading-relaxed"
+                  className="flex gap-4 border-b border-grafite/15 py-5 text-lg leading-relaxed"
                 >
                   <span
                     aria-hidden="true"
@@ -117,19 +117,19 @@ export default async function PaginaArea({
         </div>
       </section>
 
-      <section className="border-y border-dourado/40 bg-off-white py-20 lg:py-28">
+      <section className="secao border-y border-dourado/40 bg-off-white">
         <div className="container-site">
           <h2
             data-revelar
-            className="font-serif text-[clamp(2rem,3.4vw,3rem)] leading-tight font-medium"
+            className="font-serif text-bloco leading-tight font-medium"
           >
             {paginaArea.comoAtua.titulo}
           </h2>
-          <ul data-revelar-grupo className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-8">
+          <ul data-revelar-grupo className="mt-10 grid gap-8 lg:grid-cols-3 lg:gap-8">
             {paginaArea.comoAtua.blocos.map((bloco) => (
               <li key={bloco.chave} className="border-t border-dourado pt-6">
                 <h3 className="rotulo">{bloco.titulo}</h3>
-                <p className="mt-4 text-[1.0625rem] leading-relaxed text-grafite/80">
+                <p className="mt-4 text-lg leading-relaxed text-grafite/80">
                   {area.comoAtua[bloco.chave]}
                 </p>
               </li>
@@ -138,9 +138,9 @@ export default async function PaginaArea({
         </div>
       </section>
 
-      <section className="bg-branco py-20 lg:py-28">
+      <section className="secao bg-branco">
         <div className="container-site" data-revelar-grupo>
-          <h2 className="max-w-3xl font-serif text-[clamp(2rem,4vw,3.5rem)] leading-[1.08] font-medium text-balance">
+          <h2 className="max-w-3xl font-serif text-secao leading-[1.08] font-medium text-balance">
             {paginaArea.chamada.titulo}
           </h2>
           <div className="mt-10 flex flex-wrap items-center gap-x-9 gap-y-5">
@@ -164,7 +164,7 @@ export default async function PaginaArea({
         <div className="container-site grid sm:grid-cols-2 sm:divide-x sm:divide-grafite/15">
           <Link
             href={`/areas/${anterior.slug}`}
-            className="group flex flex-col gap-2 border-b border-grafite/15 py-9 sm:border-b-0 sm:pr-8"
+            className="group flex flex-col gap-2 border-b border-grafite/15 py-7 sm:border-b-0 sm:pr-8"
           >
             <span className="rotulo flex items-center gap-2">
               <IconeSeta className="size-4 rotate-180" />
@@ -176,7 +176,7 @@ export default async function PaginaArea({
           </Link>
           <Link
             href={`/areas/${seguinte.slug}`}
-            className="group flex flex-col gap-2 py-9 sm:items-end sm:pl-8 sm:text-right"
+            className="group flex flex-col gap-2 py-7 sm:items-end sm:pl-8 sm:text-right"
           >
             <span className="rotulo flex items-center gap-2">
               {paginaArea.seguinte}

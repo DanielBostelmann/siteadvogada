@@ -24,11 +24,11 @@ const CANAIS = [
 ] as const;
 
 export const Contato = () => (
-  <section id="contato" className="bg-off-white py-24 lg:py-36">
-    <div className="container-site grid gap-16 lg:grid-cols-12 lg:gap-8">
+  <section id="contato" className="bg-off-white secao">
+    <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-8">
       <div data-revelar-grupo className="lg:col-span-5">
         <p className="rotulo">Contato</p>
-        <h2 className="mt-6 font-serif text-[clamp(2.25rem,4.2vw,3.75rem)] leading-[1.05] font-medium text-balance">
+        <h2 className="mt-6 font-serif text-secao leading-[1.05] font-medium text-balance">
           {contato.titulo}
         </h2>
         <p className="mt-5 max-w-md text-lg leading-relaxed text-grafite/75">
@@ -57,7 +57,7 @@ export const Contato = () => (
 
         <BotaoWhatsApp className="mt-9">{contato.botaoWhatsApp}</BotaoWhatsApp>
 
-        <div className="relative mt-14 mr-4 hidden w-56 lg:block">
+        <div className="relative mt-12 mr-4 hidden w-56 lg:block">
           <Moldura className="translate-x-4 translate-y-4" />
           <Foto
             src={fotos.contato.src}

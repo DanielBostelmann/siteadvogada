@@ -100,7 +100,7 @@ export const FormularioContato = () => {
       {estado.status === "erro" ? (
         <p
           role="alert"
-          className="mb-8 border-l border-dourado py-1 pl-5 text-[0.9375rem] leading-relaxed text-grafite"
+          className="mb-8 border-l border-dourado py-1 pl-5 text-base leading-relaxed text-grafite"
         >
           Não foi possível enviar a mensagem agora. Fale com o escritório pelo{" "}
           <a
@@ -140,6 +140,7 @@ export const FormularioContato = () => {
             name="email"
             required
             autoComplete="email"
+            spellCheck={false}
             defaultValue={valores?.email}
             className={CAMPO}
             {...atributosDeErro("email")}
@@ -197,7 +198,7 @@ export const FormularioContato = () => {
 
       <p
         id="aviso-formulario"
-        className="mt-4 text-[0.9375rem] leading-relaxed text-grafite/70"
+        className="mt-4 text-base leading-relaxed text-grafite/70"
       >
         {contato.formulario.aviso}
       </p>
@@ -219,7 +220,7 @@ export const FormularioContato = () => {
             className="mt-1 size-5 shrink-0 accent-dourado-texto"
             {...atributosDeErro("consentimento")}
           />
-          <span className="text-[0.9375rem] leading-relaxed text-grafite/80">
+          <span className="text-base leading-relaxed text-grafite/80">
             Li e concordo com a{" "}
             <Link href="/politica-de-privacidade" className={LINK}>
               Política de Privacidade

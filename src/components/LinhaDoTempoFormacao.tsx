@@ -13,8 +13,8 @@ export const LinhaDoTempoFormacao = () => {
             className="absolute top-2 -left-[3px] size-[5px] rounded-full bg-dourado"
           />
           <p className="rotulo">{etapa.ano}</p>
-          <p className="mt-2 font-serif text-xl">{etapa.titulo}</p>
-          <p className="mt-1 text-[0.9375rem] text-grafite/75">
+          <p className="mt-2 font-serif text-2xl">{etapa.titulo}</p>
+          <p className="mt-1 text-base text-grafite/75">
             {etapa.instituicao}
           </p>
         </li>

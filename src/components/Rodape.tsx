@@ -9,7 +9,7 @@ const TITULO_COLUNA =
   "text-[0.8125rem] font-medium tracking-[0.2em] text-dourado uppercase";
 // min-h-11: área de toque de 44 px (PRD, seção 9).
 const LINK =
-  "inline-flex min-h-11 min-w-11 items-center text-[0.9375rem] text-off-white/80 hover:text-off-white";
+  "inline-flex min-h-11 min-w-11 items-center text-base text-off-white/80 hover:text-off-white";
 
 const AnoCorrente = async () => {
   "use cache";
@@ -21,7 +21,7 @@ export const Rodape = () => (
   <footer className="bg-grafite text-off-white">
     {/* Duas colunas até 1280 px; a partir daí, quatro colunas com a largura
         do próprio conteúdo, para nenhum item quebrar linha. */}
-    <div className="container-site grid gap-12 py-16 sm:grid-cols-2 lg:py-24 xl:grid-cols-[repeat(4,auto)] xl:justify-between xl:gap-x-12">
+    <div className="container-site grid gap-10 py-12 sm:grid-cols-2 lg:py-20 xl:grid-cols-[repeat(4,auto)] xl:justify-between xl:gap-x-12">
       <div className="sm:col-span-2 xl:col-span-1">
         <Image
           src="/logo/logo-completa.png"
@@ -31,10 +31,10 @@ export const Rodape = () => (
           sizes="260px"
           className="h-auto w-56 lg:w-64"
         />
-        <p className="mt-8 text-[0.9375rem] text-off-white/80">
+        <p className="mt-6 text-base text-off-white/80">
           {site.nome} · {site.oab}
         </p>
-        <p className="mt-2 text-[0.9375rem] text-off-white/80">
+        <p className="mt-2 text-base text-off-white/80">
           {site.abrangencia}
         </p>
       </div>

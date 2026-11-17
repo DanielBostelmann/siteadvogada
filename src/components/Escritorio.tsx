@@ -8,15 +8,15 @@ export const Escritorio = () => {
   const [abertura, ...demais] = escritorio.paragrafos;
 
   return (
-    <section id="escritorio" className="bg-branco py-24 lg:py-36">
-      <div className="container-site grid gap-16 lg:grid-cols-12 lg:gap-8">
+    <section id="escritorio" className="bg-branco secao">
+      <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-8">
         <PalavraPorPalavra className="lg:col-span-7">
           <h2 data-revelar className="rotulo">
             {escritorio.titulo}
           </h2>
           <p
             data-palavras
-            className="mt-8 font-serif text-[clamp(1.75rem,3vw,2.75rem)] leading-[1.2] text-pretty"
+            className="mt-8 font-serif text-destaque leading-[1.2] text-pretty"
           >
             {abertura}
           </p>

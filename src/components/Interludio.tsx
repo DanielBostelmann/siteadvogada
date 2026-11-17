@@ -9,7 +9,7 @@ import { InterludioCena } from "./movimento/InterludioCena";
 /** A única seção de fundo grafite da página inicial, além do rodapé. */
 export const Interludio = () => (
   <section aria-label="Compromisso do escritório" className="bg-grafite">
-    <InterludioCena className="relative isolate flex min-h-svh items-start overflow-hidden lg:items-center">
+    <InterludioCena className="relative isolate flex min-h-[42rem] items-start overflow-hidden lg:min-h-svh lg:items-center">
       {/* Foto da Dra. com véu grafite só na metade junto ao texto: no celular,
           ela ocupa a parte de baixo da seção e o véu funde o topo; no
           computador, ocupa a metade direita e o véu cobre a metade esquerda. */}
@@ -26,7 +26,7 @@ export const Interludio = () => (
         <div className="absolute inset-x-0 bottom-0 h-1/4 bg-linear-to-t from-grafite/70 to-transparent" />
       </div>
 
-      <div className="container-site grid pt-24 pb-28 lg:grid-cols-12 lg:gap-8 lg:py-28">
+      <div className="container-site grid pt-(--espaco-secao) pb-28 lg:grid-cols-12 lg:gap-8 lg:py-28">
         <div className="text-center lg:col-span-6 lg:text-left">
           <div
             data-interludio="logo"
@@ -55,7 +55,7 @@ export const Interludio = () => (
           <p
             data-interludio="frase"
             data-oculto
-            className="mt-16 font-serif text-[clamp(1.625rem,3.2vw,3rem)] leading-[1.22] text-balance text-off-white"
+            className="mt-16 font-serif text-destaque leading-[1.22] text-balance text-off-white"
           >
             {interludio.frase}
           </p>

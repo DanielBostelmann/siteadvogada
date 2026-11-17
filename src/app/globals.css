@@ -24,6 +24,10 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    /* Toque sem atraso de zoom duplo e sem o realce padrão do navegador: os
+       botões já respondem ao toque (botao-pressionavel). */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     scroll-padding-top: 5rem;
   }
 
@@ -81,6 +85,27 @@
     outline-offset: 3px;
     border-radius: 2px;
   }
+}
+
+/* Escala de espaçamento vertical (plano de otimização, fase 2). Valores
+   fluidos entre o celular (mínimo) e o computador (máximo), para o respiro
+   encolher na mesma proporção em todo o site. */
+@theme {
+  /* Escala tipográfica (plano de otimização, fase 4): quatro degraus
+     serifados fluidos, mais 24 e 30 px fixos (text-2xl, text-3xl). O texto
+     sem serifa usa 12, 13, 14, 16 e 18 px (xs, rótulo, sm, base, lg). */
+  --text-display: clamp(2.625rem, 1.5rem + 3.8vw, 5.25rem);
+  --text-secao: clamp(2.25rem, 1.25rem + 2.6vw, 3.75rem);
+  --text-bloco: clamp(1.875rem, 1.125rem + 2vw, 2.875rem);
+  --text-destaque: clamp(1.625rem, 1rem + 1.7vw, 2.625rem);
+
+  --espaco-secao: clamp(4.5rem, 3rem + 4vw, 7rem);
+  --espaco-bloco: clamp(2.5rem, 1.5rem + 2.5vw, 4rem);
+}
+
+/* Respiro de cima e de baixo de cada seção. */
+@utility secao {
+  padding-block: var(--espaco-secao);
 }
 
 /* Largura e respiro laterais comuns a todas as seções. */

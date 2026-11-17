@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 
 import { Cabecalho } from "@/components/Cabecalho";
@@ -48,6 +48,10 @@ export const metadata: Metadata = {
   applicationName: site.marcaCurta,
   authors: [{ name: site.nome }],
   formatDetection: { telephone: false },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -10,14 +10,14 @@ export const FaixaIdentificacao = () => (
 
     <ul
       data-revelar-grupo
-      className="container-site grid divide-y divide-dourado/40 lg:grid-cols-3 lg:divide-x lg:divide-y-0"
+      className="container-site grid divide-y divide-dourado/40 xl:grid-cols-3 xl:divide-x xl:divide-y-0"
     >
       {identificacao.map((item) => (
         <li
           key={item.destaque}
-          className="py-9 lg:px-8 lg:py-14 lg:first:pl-0 lg:last:pr-0 xl:px-10"
+          className="py-6 xl:px-8 xl:py-10 xl:first:pl-0 xl:last:pr-0"
         >
-          <p className="font-serif text-[clamp(1.75rem,2.6vw,2.75rem)] leading-none font-medium whitespace-nowrap text-grafite">
+          <p className="font-serif text-destaque leading-none font-medium whitespace-nowrap text-grafite">
             {item.destaque}
           </p>
           <p className="rotulo mt-4">{item.texto}</p>

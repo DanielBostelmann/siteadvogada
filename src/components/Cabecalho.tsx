@@ -109,7 +109,7 @@ export const Cabecalho = () => {
       <div
         id="menu-principal"
         hidden={!menuAberto}
-        className="fixed inset-0 z-40 overflow-y-auto bg-off-white xl:hidden"
+        className="fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-off-white xl:hidden"
       >
         <nav
           aria-label="Menu"
