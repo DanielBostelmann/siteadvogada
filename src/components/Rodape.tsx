@@ -35,7 +35,7 @@ export const Rodape = () => (
         </p>
       </div>
 
-      <nav aria-label="Rodapé" className="lg:col-span-2 lg:col-start-5">
+      <nav aria-label="Rodapé" className="lg:col-span-2 lg:col-start-4">
         <h2 className={TITULO_COLUNA}>Navegação</h2>
         <ul className="mt-6 space-y-3">
           {navegacao.map((item) => (
@@ -61,7 +61,7 @@ export const Rodape = () => (
         </ul>
       </nav>
 
-      <div className="lg:col-span-3">
+      <div className="lg:col-span-4">
         <h2 className={TITULO_COLUNA}>Contato</h2>
         <ul className="mt-6 space-y-3">
           <li>
