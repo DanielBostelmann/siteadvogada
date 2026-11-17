@@ -18,6 +18,14 @@ export const direitoPrevidenciario: Area = {
     "Benefício assistencial BPC/LOAS.",
     "Recursos administrativos e ações previdenciárias.",
   ],
+  comoAtua: {
+    consultoria:
+      "Análise do histórico de contribuições e orientação sobre os benefícios aplicáveis a cada situação.",
+    administrativa:
+      "Requerimentos, acompanhamento de processos e recursos perante o INSS.",
+    judicial:
+      "Ações de concessão e de revisão de benefícios previdenciários e assistenciais.",
+  },
   imagem: {
     src: "/areas/direito-previdenciario.avif",
     largura: 896,

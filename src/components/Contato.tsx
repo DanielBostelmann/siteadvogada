@@ -6,6 +6,7 @@ import { BotaoCopiar } from "./BotaoCopiar";
 import { BotaoWhatsApp } from "./BotaoWhatsApp";
 import { FormularioContato } from "./FormularioContato";
 import { Foto } from "./Foto";
+import { Moldura } from "./Moldura";
 
 const CANAIS = [
   {
@@ -25,7 +26,7 @@ const CANAIS = [
 export const Contato = () => (
   <section id="contato" className="bg-off-white py-24 lg:py-36">
     <div className="container-site grid gap-16 lg:grid-cols-12 lg:gap-8">
-      <div className="lg:col-span-5">
+      <div data-revelar-grupo className="lg:col-span-5">
         <p className="rotulo">Contato</p>
         <h2 className="mt-6 font-serif text-[clamp(2.25rem,4.2vw,3.75rem)] leading-[1.05] font-medium text-balance">
           {contato.titulo}
@@ -45,7 +46,7 @@ export const Contato = () => (
                 <dd className="mt-1">
                   <a
                     href={canal.href}
-                    className="font-serif text-xl break-all text-grafite hover:text-dourado-texto sm:text-2xl"
+                    className="link-dourado link-dourado-oculto pb-0.5 font-serif text-xl break-all text-grafite sm:text-2xl"
                   >
                     {canal.valor}
                   </a>
@@ -59,10 +60,7 @@ export const Contato = () => (
         <BotaoWhatsApp className="mt-9">{contato.botaoWhatsApp}</BotaoWhatsApp>
 
         <div className="relative mt-14 mr-4 hidden w-56 lg:block">
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 translate-x-4 translate-y-4 rounded-moldura border border-dourado"
-          />
+          <Moldura className="translate-x-4 translate-y-4" />
           <Foto
             src={fotos.contato.src}
             alt={fotos.contato.alt}

@@ -4,32 +4,35 @@ import { advogada } from "@/content/home";
 
 import { Foto } from "./Foto";
 import { LinhaDoTempoFormacao } from "./LinhaDoTempoFormacao";
+import { Moldura } from "./Moldura";
+import { RetratoCena } from "./movimento/RetratoCena";
 
 export const Advogada = () => (
   <section id="advogada" className="bg-branco py-24 lg:py-40">
     <div className="container-site">
       <div className="grid gap-16 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-5">
+        <RetratoCena className="lg:col-span-5">
           <div className="relative mr-5 mb-5 ml-5 max-w-md lg:max-w-none">
             <span
               aria-hidden="true"
+              data-retrato="bloco"
+              data-oculto
               className="absolute -top-5 -bottom-5 -left-5 w-3/4 rounded-moldura bg-champagne"
             />
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 translate-x-5 translate-y-5 rounded-moldura border border-dourado"
-            />
-            <Foto
-              src={fotos.advogada.src}
-              alt={fotos.advogada.alt}
-              sizes="(min-width: 1024px) 36vw, 85vw"
-              className="aspect-[4/5]"
-              imagemClassName="object-cover object-[50%_22%]"
-            />
+            <Moldura cena="cena" className="translate-x-5 translate-y-5" />
+            <div data-retrato="foto" data-oculto>
+              <Foto
+                src={fotos.advogada.src}
+                alt={fotos.advogada.alt}
+                sizes="(min-width: 1024px) 36vw, 85vw"
+                className="aspect-[4/5]"
+                imagemClassName="object-cover object-[50%_22%]"
+              />
+            </div>
           </div>
-        </div>
+        </RetratoCena>
 
-        <div className="lg:col-span-6 lg:col-start-7 lg:pt-6">
+        <div data-revelar-grupo className="lg:col-span-6 lg:col-start-7 lg:pt-6">
           <p className="rotulo">{advogada.rotulo}</p>
           <h2 className="mt-6 font-serif text-[clamp(2.5rem,4.6vw,4.25rem)] leading-none font-medium">
             {site.nome}
@@ -51,7 +54,7 @@ export const Advogada = () => (
         </div>
       </div>
 
-      <ul className="mt-20 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:mt-28 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:pb-0">
+      <ul data-revelar-grupo className="galeria mt-20 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:mt-28 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:pb-0">
         {fotos.galeria.map((foto) => (
           <li
             key={foto.alt}

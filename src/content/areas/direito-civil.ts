@@ -18,6 +18,14 @@ export const direitoCivil: Area = {
     "Inventários e questões sucessórias.",
     "Ações de família e questões patrimoniais.",
   ],
+  comoAtua: {
+    consultoria:
+      "Elaboração e revisão de contratos e orientação em questões patrimoniais, familiares e sucessórias.",
+    administrativa:
+      "Procedimentos extrajudiciais em cartório, como inventários e usucapião, nos casos em que a lei permite.",
+    judicial:
+      "Ações de cobrança, indenização, contratos, posse, propriedade, família e sucessões.",
+  },
   imagem: {
     src: "/areas/direito-civil.avif",
     largura: 896,

@@ -39,14 +39,15 @@ export const Cabecalho = () => {
   const solido = rolou || menuAberto;
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-40 border-b ${
-        solido
-          ? "border-grafite/10 bg-branco"
-          : "border-transparent bg-transparent"
-      }`}
-    >
-      <div className="container-site flex h-16 items-center justify-between gap-6 lg:h-20">
+    <header className="fixed inset-x-0 top-0 z-40">
+      {/* Fundo em camada própria: a troca é uma transição de opacidade. */}
+      <span
+        aria-hidden="true"
+        className={`absolute inset-0 border-b border-grafite/10 bg-branco motion-safe:transition-opacity motion-safe:duration-500 ${
+          solido ? "opacity-100" : "opacity-0"
+        }`}
+      />
+      <div className="container-site relative flex h-16 items-center justify-between gap-6 lg:h-20">
         <Link
           href="/#inicio"
           aria-label={`${site.marcaCurta} — início`}
@@ -70,7 +71,7 @@ export const Cabecalho = () => {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="border-b border-transparent py-2 text-sm text-grafite hover:border-dourado"
+                  className="link-dourado link-dourado-oculto py-2 text-sm text-grafite"
                 >
                   {item.rotulo}
                 </Link>

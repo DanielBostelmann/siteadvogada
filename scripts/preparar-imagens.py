@@ -63,6 +63,10 @@ def preparar_logo():
     quadrado.resize((512, 512), Image.LANCZOS).save(
         LOGO_SAIDA / "monograma.png", optimize=True
     )
+    # Versão leve para a tela de abertura, servida sem passar pelo otimizador.
+    quadrado.resize((256, 256), Image.LANCZOS).save(
+        LOGO_SAIDA / "monograma-abertura.webp", quality=88
+    )
     quadrado.resize((256, 256), Image.LANCZOS).save(
         RAIZ / "src" / "app" / "favicon.ico",
         sizes=[(16, 16), (32, 32), (48, 48), (64, 64)],

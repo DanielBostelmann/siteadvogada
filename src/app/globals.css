@@ -79,3 +79,141 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   }
 }
+
+/* Sublinhado dourado que se redesenha no hover (PRD, seção 8). */
+@utility link-dourado {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--color-dourado);
+    transform-origin: left;
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:hover::after {
+      animation: desenhar-sublinhado 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+  }
+}
+
+/* Variante da navegação: o sublinhado só existe no hover e no foco. */
+@utility link-dourado-oculto {
+  &::after {
+    transform: scaleX(0);
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    transform: scaleX(1);
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &::after {
+      transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+  }
+}
+
+/* Botões: escala de 0,98 ao pressionar. */
+@utility botao-pressionavel {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+/* Máscara com o desenho da logomarca, para o brilho percorrer só o dourado. */
+@utility mascara-logo {
+  mask-image: url("/logo/logo-completa.png");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+@keyframes desenhar-sublinhado {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Estado inicial das revelações. Só vale quando o script inicial liga o
+   movimento; com movimento reduzido ou sem JavaScript, tudo aparece de imediato. */
+html[data-movimento="on"] {
+  :is([data-oculto], [data-revelar], [data-palavras]),
+  [data-revelar-grupo]:not([data-revelado]) > *,
+  [data-moldura]:not([data-revelado]) {
+    visibility: hidden;
+  }
+}
+
+/* Abertura: tela off-white com o monograma, uma vez por sessão. */
+.abertura {
+  display: none;
+}
+
+html[data-abertura="tocar"] .abertura {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-off-white);
+  pointer-events: none;
+  animation: abrir-cortina 0.8s cubic-bezier(0.65, 0, 0.35, 1) 1.2s both;
+}
+
+html[data-abertura="tocar"] .abertura-monograma {
+  animation: revelar-monograma 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.1s both;
+}
+
+@keyframes abrir-cortina {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+@keyframes revelar-monograma {
+  from {
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(12px);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    transform: translateY(0);
+  }
+}
+
+/* Galeria: a foto sob o cursor se aproxima devagar e as vizinhas recuam. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .galeria li {
+    transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  .galeria img {
+    transition: transform 1.2s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  .galeria:hover li:not(:hover) {
+    opacity: 0.55;
+  }
+
+  .galeria li:hover img {
+    transform: scale(1.04);
+  }
+}

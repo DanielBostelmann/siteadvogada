@@ -26,7 +26,7 @@ export const BotaoWhatsApp = ({
     href={linkWhatsApp(area)}
     target="_blank"
     rel="noopener noreferrer"
-    className={`inline-flex min-h-12 items-center justify-center gap-3 rounded-moldura px-6 text-sm font-medium tracking-wide ${ESTILOS[variante]} ${className}`}
+    className={`botao-pressionavel inline-flex min-h-12 items-center justify-center gap-3 rounded-moldura px-6 text-sm font-medium tracking-wide ${ESTILOS[variante]} ${className}`}
   >
     <IconeWhatsApp className="size-[1.125rem] shrink-0" />
     {children}

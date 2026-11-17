@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { cacheLife } from "next/cache";
 import Link from "next/link";
 
 import { navegacao, site } from "@/config/site";
@@ -10,6 +11,7 @@ const LINK = "text-[0.9375rem] text-off-white/80 hover:text-off-white";
 
 const AnoCorrente = async () => {
   "use cache";
+  cacheLife("days");
   return <>{new Date().getFullYear()}</>;
 };
 

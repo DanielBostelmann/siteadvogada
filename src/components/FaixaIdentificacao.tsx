@@ -1,11 +1,17 @@
 import { identificacao } from "@/content/home";
 
+const FILETE = "absolute inset-x-0 h-px origin-left bg-dourado/40";
+
 export const FaixaIdentificacao = () => (
-  <section
-    aria-label="O escritório em resumo"
-    className="border-y border-dourado/40 bg-off-white"
-  >
-    <ul className="container-site grid divide-y divide-dourado/40 md:grid-cols-3 md:divide-x md:divide-y-0">
+  <section aria-label="O escritório em resumo" className="relative bg-off-white">
+    {/* Filetes dourados que se desenham da esquerda ao entrar na tela. */}
+    <span aria-hidden="true" data-filete className={`${FILETE} top-0`} />
+    <span aria-hidden="true" data-filete className={`${FILETE} bottom-0`} />
+
+    <ul
+      data-revelar-grupo
+      className="container-site grid divide-y divide-dourado/40 md:grid-cols-3 md:divide-x md:divide-y-0"
+    >
       {identificacao.map((item) => (
         <li
           key={item.destaque}

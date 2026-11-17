@@ -19,6 +19,14 @@ export const direitoTributario: Area = {
     "Recuperação de créditos tributários.",
     "Consultoria tributária empresarial.",
   ],
+  comoAtua: {
+    consultoria:
+      "Análise da situação fiscal, orientação sobre obrigações tributárias e planejamento dentro dos limites da lei.",
+    administrativa:
+      "Defesas e recursos em autos de infração e em processos perante os órgãos fazendários.",
+    judicial:
+      "Ações e defesas em matéria tributária, como execuções fiscais, mandados de segurança e pedidos de restituição.",
+  },
   imagem: {
     src: "/areas/direito-tributario.avif",
     largura: 896,

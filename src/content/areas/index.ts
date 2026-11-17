@@ -16,4 +16,7 @@ export const areas: readonly Area[] = [
   direitoAmbiental,
 ];
 
+export const buscarArea = (slug: string): Area | undefined =>
+  areas.find((area) => area.slug === slug);
+
 export type { Area };

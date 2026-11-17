@@ -17,6 +17,14 @@ export const direitoAmbiental: Area = {
     "Consultoria para atividades rurais e empresariais.",
     "Questões relacionadas ao CAR e à legislação ambiental.",
   ],
+  comoAtua: {
+    consultoria:
+      "Orientação sobre licenciamento, regularização de propriedades, CAR e legislação ambiental.",
+    administrativa:
+      "Defesas em autos de infração, embargos e processos administrativos ambientais.",
+    judicial:
+      "Atuação em ações civis públicas e em demandas sobre responsabilidade por danos ambientais.",
+  },
   imagem: {
     src: "/areas/direito-ambiental.avif",
     largura: 896,

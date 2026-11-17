@@ -24,7 +24,7 @@ export const BotaoCopiar = ({ valor, descricao }: BotaoCopiarProps) => {
       type="button"
       onClick={copiar}
       aria-label={`Copiar ${descricao}`}
-      className="inline-flex min-h-11 min-w-20 items-center justify-center rounded-moldura border border-grafite/20 px-3 text-xs font-medium tracking-[0.12em] text-grafite uppercase hover:border-dourado"
+      className="botao-pressionavel inline-flex min-h-11 min-w-20 items-center justify-center rounded-moldura border border-grafite/20 px-3 text-xs font-medium tracking-[0.12em] text-grafite uppercase hover:border-dourado"
     >
       <span aria-live="polite">{copiado ? "Copiado" : "Copiar"}</span>
     </button>

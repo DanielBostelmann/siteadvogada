@@ -5,10 +5,12 @@ import { Escritorio } from "@/components/Escritorio";
 import { FaixaIdentificacao } from "@/components/FaixaIdentificacao";
 import { Hero } from "@/components/Hero";
 import { Interludio } from "@/components/Interludio";
+import { Abertura } from "@/components/movimento/Abertura";
 
 export default function PaginaInicial() {
   return (
     <>
+      <Abertura />
       <Hero />
       <Escritorio />
       <FaixaIdentificacao />

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 
 import { Cabecalho } from "@/components/Cabecalho";
+import { MovimentoGlobal } from "@/components/movimento/MovimentoGlobal";
+import { ScriptMovimento } from "@/components/movimento/ScriptMovimento";
 import { Rodape } from "@/components/Rodape";
 import { WhatsAppFlutuante } from "@/components/WhatsAppFlutuante";
 import { site } from "@/config/site";
@@ -34,9 +36,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
+      suppressHydrationWarning
       className={`${cormorant.variable} ${inter.variable} antialiased`}
     >
       <body className="flex min-h-svh flex-col">
+        <ScriptMovimento />
         <a
           href="#conteudo"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-grafite focus:px-4 focus:py-3 focus:text-branco"
@@ -49,6 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Rodape />
         <WhatsAppFlutuante />
+        <MovimentoGlobal />
       </body>
     </html>
   );

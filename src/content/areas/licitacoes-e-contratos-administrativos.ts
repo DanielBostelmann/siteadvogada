@@ -17,6 +17,14 @@ export const licitacoes: Area = {
     "Mandados de segurança em licitações.",
     "Consultoria para empresas licitantes.",
   ],
+  comoAtua: {
+    consultoria:
+      "Leitura de editais e contratos, orientação a empresas licitantes e acompanhamento da execução contratual.",
+    administrativa:
+      "Impugnações, recursos e defesas em processos administrativos, inclusive nos de aplicação de penalidades.",
+    judicial:
+      "Medidas judiciais relacionadas a licitações e contratos administrativos, como o mandado de segurança.",
+  },
   imagem: {
     src: "/areas/licitacoes-e-contratos-administrativos.avif",
     largura: 896,
