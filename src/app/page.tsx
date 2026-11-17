@@ -6,10 +6,15 @@ import { FaixaIdentificacao } from "@/components/FaixaIdentificacao";
 import { Hero } from "@/components/Hero";
 import { Interludio } from "@/components/Interludio";
 import { Abertura } from "@/components/movimento/Abertura";
+import { dadosEstruturados, serializarJsonLd } from "@/lib/seo";
 
 export default function PaginaInicial() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializarJsonLd(dadosEstruturados) }}
+      />
       <Abertura />
       <Hero />
       <Escritorio />

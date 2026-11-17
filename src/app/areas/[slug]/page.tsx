@@ -8,6 +8,7 @@ import { IconeSeta } from "@/components/Icones";
 import { site } from "@/config/site";
 import { areas, buscarArea } from "@/content/areas";
 import { paginaArea } from "@/content/pagina-area";
+import { metadadosDaPagina } from "@/lib/seo";
 
 export const generateStaticParams = () =>
   areas.map((area) => ({ slug: area.slug }));
@@ -19,11 +20,11 @@ export const generateMetadata = async ({
   const area = buscarArea(slug);
   if (!area) return {};
 
-  return {
-    title: `${area.nome} | ${site.marcaCurta}`,
-    description: `${area.apresentacao} ${site.abrangencia}.`,
-    alternates: { canonical: `/areas/${area.slug}` },
-  };
+  return metadadosDaPagina({
+    titulo: `${area.nome} | ${site.marcaCurta}`,
+    descricao: `${area.apresentacao} ${site.abrangencia}.`,
+    caminho: `/areas/${area.slug}`,
+  });
 };
 
 export default async function PaginaArea({
@@ -47,7 +48,8 @@ export default async function PaginaArea({
             fill
             preload
             sizes="100vw"
-            data-movimento="zoom"
+            data-entrada="zoom"
+            fetchPriority="high"
             className="object-cover object-[50%_55%]"
           />
           <div className="absolute inset-0 bg-linear-to-r from-branco/90 via-branco/55 to-branco/10" />

@@ -1,20 +1,20 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
+import { type ContextSafeFunc, useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
 import type { Area } from "@/content/areas";
 import { secaoAreas } from "@/content/home";
+import { comExtras, type ExtrasDeMovimento } from "@/lib/extras-de-movimento";
 import { CONSULTA, CURVA, DURACAO } from "@/lib/movimento";
 
 import { IconeSeta } from "./Icones";
 import { Moldura } from "./Moldura";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP);
 
 const SERVICOS_EM_DESTAQUE = 3;
 const PARALAXE_PX = 10;
@@ -41,28 +41,33 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
   // Computador: o item que cruza o meio da tela fica ativo enquanto a lista
   // passa ao lado do painel fixo; o cursor desloca a imagem poucos pixels.
   useGSAP(
-    () => {
+    (_contexto, protegido) => {
+      const seguro: ContextSafeFunc = protegido ?? ((funcao) => funcao);
       const consultas = gsap.matchMedia();
       consultas.add(CONSULTA.computador, () => {
         const achar = gsap.utils.selector(bloco);
 
-        achar("[data-area-item]").forEach((item, indice) => {
-          ScrollTrigger.create({
-            trigger: item,
-            start: "top 55%",
-            end: "bottom 55%",
-            onToggle: ({ isActive }) => {
-              if (isActive) ativar(indice);
-            },
-          });
-        });
+        const pararGatilhos = comExtras(
+          seguro(({ ScrollTrigger }: ExtrasDeMovimento) => {
+            achar("[data-area-item]").forEach((item, indice) => {
+              ScrollTrigger.create({
+                trigger: item,
+                start: "top 55%",
+                end: "bottom 55%",
+                onToggle: ({ isActive }) => {
+                  if (isActive) ativar(indice);
+                },
+              });
+            });
+          }),
+        );
 
         const painel = bloco.current?.querySelector<HTMLElement>(
           "[data-area='painel']",
         );
         const camadas = achar("[data-area='camadas']")[0];
         const foco = achar("[data-area='foco']")[0];
-        if (!painel || !camadas || !foco) return;
+        if (!painel || !camadas || !foco) return pararGatilhos;
 
         const opcoes = { duration: DURACAO.curta, ease: CURVA.entrada };
         const moverX = gsap.quickTo(camadas, "x", opcoes);
@@ -89,6 +94,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
         painel.addEventListener("mousemove", acompanhar);
         painel.addEventListener("mouseleave", soltar);
         return () => {
+          pararGatilhos();
           painel.removeEventListener("mousemove", acompanhar);
           painel.removeEventListener("mouseleave", soltar);
         };

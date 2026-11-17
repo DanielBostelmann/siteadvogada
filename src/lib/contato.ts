@@ -1,14 +1,11 @@
 import { z } from "zod";
 
-import { areas } from "@/content/areas";
-import { contato } from "@/content/home";
-
-export const LIMITE_MENSAGEM = 2000;
-
-export const OPCOES_DE_AREA: readonly string[] = [
-  ...areas.map((area) => area.nome),
-  contato.formulario.areaOutro,
-];
+import {
+  type CampoContato,
+  type ErrosContato,
+  LIMITE_MENSAGEM,
+  OPCOES_DE_AREA,
+} from "./contato-campos";
 
 // O mesmo esquema valida no navegador e no servidor.
 export const contatoSchema = z.object({
@@ -41,19 +38,6 @@ export const contatoSchema = z.object({
     "Para enviar, é preciso concordar com a Política de Privacidade.",
   ),
 });
-
-export type CampoContato = keyof z.infer<typeof contatoSchema>;
-export type ErrosContato = Partial<Record<CampoContato, string>>;
-export type ValoresContato = Record<
-  Exclude<CampoContato, "consentimento">,
-  string
->;
-
-export type EstadoContato =
-  | { status: "inicial" }
-  | { status: "sucesso" }
-  | { status: "invalido"; erros: ErrosContato; valores: ValoresContato }
-  | { status: "erro"; valores: ValoresContato };
 
 export const lerFormulario = (formData: FormData) => {
   const texto = (campo: string) => {

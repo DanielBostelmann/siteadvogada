@@ -33,7 +33,9 @@ export const CONSULTA = {
     "(min-width: 1024px) and (hover: hover) and (prefers-reduced-motion: no-preference)",
 } as const;
 
-export const GATILHO = {
-  entrada: "top 86%",
-  cena: "top 72%",
+/** Altura da tela (0 = topo, 1 = base) que o elemento cruza para se revelar. */
+export const LINHA_DE_ENTRADA = {
+  padrao: 0.88,
+  cena: 0.72,
+  interludio: 0.5,
 } as const;

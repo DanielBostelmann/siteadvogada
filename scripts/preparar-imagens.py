@@ -129,7 +129,46 @@ def preparar_fotos():
         print(f"fotos/{origem.stem}.jpg {img.size}")
 
 
+def preparar_compartilhamento():
+    """Imagem de compartilhamento (Open Graph), 1200x630: logomarca e retrato."""
+    grafite = (41, 41, 41)
+    dourado = (198, 161, 91)
+    tela = Image.new("RGB", (1200, 630), grafite)
+
+    foto = Image.open(FOTOS_SAIDA / "foto-06.jpg").convert("RGB")
+    largura_foto, altura_foto = 400, 510
+    escala = max(largura_foto / foto.width, altura_foto / foto.height)
+    foto = foto.resize(
+        (round(foto.width * escala), round(foto.height * escala)), Image.LANCZOS
+    )
+    sobra_x = (foto.width - largura_foto) // 2
+    sobra_y = round((foto.height - altura_foto) * 0.2)
+    foto = foto.crop(
+        (sobra_x, sobra_y, sobra_x + largura_foto, sobra_y + altura_foto)
+    )
+    foto_x, foto_y = 720, 60
+
+    # Moldura fina dourada, deslocada atrás da foto, como no site.
+    moldura = Image.new("RGB", (largura_foto, altura_foto), dourado)
+    miolo = Image.new("RGB", (largura_foto - 2, altura_foto - 2), grafite)
+    moldura.paste(miolo, (1, 1))
+    tela.paste(moldura, (foto_x + 18, foto_y + 18))
+    tela.paste(foto, (foto_x, foto_y))
+
+    logo = Image.open(LOGO_SAIDA / "logo-completa.png")
+    largura_logo = 520
+    logo = logo.resize(
+        (largura_logo, round(logo.height * largura_logo / logo.width)), Image.LANCZOS
+    )
+    tela.paste(logo, (100, (630 - logo.height) // 2), logo)
+
+    destino = RAIZ / "public" / "compartilhamento.jpg"
+    tela.save(destino, quality=88, optimize=True)
+    print(f"public/compartilhamento.jpg {tela.size} {destino.stat().st_size // 1024} KB")
+
+
 if __name__ == "__main__":
     preparar_logo()
     preparar_areas()
     preparar_fotos()
+    preparar_compartilhamento()

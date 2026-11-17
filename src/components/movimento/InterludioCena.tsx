@@ -1,14 +1,24 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
+import { type ContextSafeFunc, useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
 import { useRef } from "react";
 
-import { CONSULTA, CURVA, DURACAO, ESCALONAMENTO } from "@/lib/movimento";
+import { aoEntrar, revelar } from "@/lib/efeitos";
+import {
+  carregarExtrasDeMovimento,
+  comExtras,
+  type ExtrasDeMovimento,
+} from "@/lib/extras-de-movimento";
+import {
+  CONSULTA,
+  CURVA,
+  DURACAO,
+  ESCALONAMENTO,
+  LINHA_DE_ENTRADA,
+} from "@/lib/movimento";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
+gsap.registerPlugin(useGSAP);
 
 type InterludioCenaProps = { children: React.ReactNode; className?: string };
 
@@ -17,64 +27,80 @@ export const InterludioCena = ({ children, className }: InterludioCenaProps) => 
   const cena = useRef<HTMLDivElement>(null);
 
   useGSAP(
-    () => {
+    (_contexto, protegido) => {
+      const seguro: ContextSafeFunc = protegido ?? ((funcao) => funcao);
       const raiz = cena.current;
       if (!raiz) return;
       const achar = gsap.utils.selector(raiz);
       const consultas = gsap.matchMedia();
 
       consultas.add(CONSULTA.movimento, () => {
-        const frase = achar("[data-interludio='frase']")[0];
-        const linha = gsap.timeline({
-          defaults: { ease: CURVA.entrada },
-          scrollTrigger: { trigger: raiz, start: "top 45%", once: true },
-        });
-        linha
-          .fromTo(
-            achar("[data-interludio='logo']"),
-            { autoAlpha: 0, y: 24 },
-            { autoAlpha: 1, y: 0, duration: DURACAO.media },
-          )
-          .fromTo(
-            achar("[data-interludio='brilho']"),
-            { xPercent: -150, autoAlpha: 1 },
-            { xPercent: 450, duration: DURACAO.longa, ease: CURVA.mascara },
-            0.5,
-          )
-          .set(achar("[data-interludio='brilho']"), { autoAlpha: 0 });
+        const noComputador = window.matchMedia(CONSULTA.computador).matches;
 
-        gsap.set(frase, { autoAlpha: 1 });
-        SplitText.create(frase, {
-          type: "lines",
-          mask: "lines",
-          autoSplit: true,
-          onSplit: (divisao) =>
-            gsap.from(divisao.lines, {
-              yPercent: 110,
-              duration: DURACAO.longa,
-              stagger: ESCALONAMENTO.linhas,
-              ease: CURVA.entrada,
-              scrollTrigger: { trigger: raiz, start: "top 45%", once: true },
+        const entrar = () => {
+          const frase = achar("[data-interludio='frase']")[0];
+          const brilho = achar("[data-interludio='brilho']");
+
+          gsap
+            .timeline()
+            .add(revelar(achar("[data-interludio='logo']")))
+            .fromTo(
+              brilho,
+              { xPercent: -150, opacity: 1 },
+              { xPercent: 450, duration: DURACAO.longa, ease: CURVA.mascara },
+              0.5,
+            )
+            .set(brilho, { opacity: 0 });
+
+          if (!noComputador) {
+            revelar(frase, { delay: 0.2 });
+            return;
+          }
+          void carregarExtrasDeMovimento().then(
+            seguro(({ SplitText }: ExtrasDeMovimento) => {
+              const divisao = SplitText.create(frase, {
+                type: "lines",
+                mask: "lines",
+              });
+              gsap.set(frase, { opacity: 1 });
+              gsap.from(divisao.lines, {
+                yPercent: 110,
+                duration: DURACAO.longa,
+                stagger: ESCALONAMENTO.linhas,
+                ease: CURVA.entrada,
+                onComplete: () => divisao.revert(),
+              });
             }),
-        });
-      });
+          );
+        };
 
-      consultas.add(CONSULTA.computador, () => {
-        gsap.fromTo(
-          achar("[data-interludio='veu-claro']"),
-          { opacity: 1 },
-          {
-            opacity: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: raiz,
-              start: "top 90%",
-              end: "top 35%",
-              scrub: true,
-            },
-          },
+        return aoEntrar(
+          [raiz],
+          LINHA_DE_ENTRADA.interludio,
+          seguro(entrar),
         );
       });
+
+      consultas.add(CONSULTA.computador, () =>
+        comExtras(
+          seguro(() => {
+            gsap.fromTo(
+              achar("[data-interludio='veu-claro']"),
+              { opacity: 1 },
+              {
+                opacity: 0,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: raiz,
+                  start: "top 90%",
+                  end: "top 35%",
+                  scrub: true,
+                },
+              },
+            );
+          }),
+        ),
+      );
     },
     { scope: cena },
   );

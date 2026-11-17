@@ -7,6 +7,7 @@ import { ScriptMovimento } from "@/components/movimento/ScriptMovimento";
 import { Rodape } from "@/components/Rodape";
 import { WhatsAppFlutuante } from "@/components/WhatsAppFlutuante";
 import { site } from "@/config/site";
+import { metadadosDaPagina } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -14,8 +15,19 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  style: "normal",
   display: "swap",
+});
+
+// O itálico só aparece nas palavras de destaque do título da página inicial;
+// sem pré-carregamento, as outras páginas não precisam baixá-lo.
+const cormorantItalico = Cormorant_Garamond({
+  variable: "--font-cormorant-italico",
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  display: "swap",
+  preload: false,
 });
 
 const inter = Inter({
@@ -24,12 +36,17 @@ const inter = Inter({
   display: "swap",
 });
 
+const TITULO =
+  "Dra. Maria de Moraes Advocacia | Direito Tributário — atendimento em todo o Brasil";
+const DESCRICAO =
+  "Advocacia consultiva, administrativa e judicial, com especialização em Direito Tributário. Atendimento em todo o Brasil.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title:
-    "Dra. Maria de Moraes Advocacia | Direito Tributário — atendimento em todo o Brasil",
-  description:
-    "Advocacia consultiva, administrativa e judicial, com especialização em Direito Tributário. Atendimento em todo o Brasil.",
+  ...metadadosDaPagina({ titulo: TITULO, descricao: DESCRICAO, caminho: "/" }),
+  applicationName: site.marcaCurta,
+  authors: [{ name: site.nome }],
+  formatDetection: { telephone: false },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -37,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${cormorant.variable} ${inter.variable} antialiased`}
+      className={`${cormorant.variable} ${cormorantItalico.variable} ${inter.variable} antialiased`}
     >
       <body className="flex min-h-svh flex-col">
         <ScriptMovimento />

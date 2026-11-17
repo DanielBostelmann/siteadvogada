@@ -16,6 +16,8 @@
 
 @theme inline {
   --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-serif-italico:
+    var(--font-cormorant-italico), var(--font-cormorant), Georgia, serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
 }
 
@@ -148,12 +150,75 @@
 }
 
 /* Estado inicial das revelações. Só vale quando o script inicial liga o
-   movimento; com movimento reduzido ou sem JavaScript, tudo aparece de imediato. */
+   movimento; com movimento reduzido ou sem JavaScript, tudo aparece de
+   imediato. Usa opacidade, e não visibility, para o conteúdo continuar
+   disponível a leitores de tela e ao teclado antes de ser revelado. */
 html[data-movimento="on"] {
-  :is([data-oculto], [data-revelar], [data-palavras]),
+  :is([data-oculto], [data-revelar], [data-palavras], [data-filete]),
   [data-revelar-grupo]:not([data-revelado]) > *,
-  [data-moldura]:not([data-revelado]) {
-    visibility: hidden;
+  [data-moldura] {
+    opacity: 0;
+  }
+}
+
+/* Entrada do hero. Feita em CSS para não depender do JavaScript: sem a
+   abertura, o conteúdo sobe enquanto aparece; com a abertura, ele já está
+   pintado atrás da cortina e só sobe quando ela abre. */
+html[data-movimento="on"] :is([data-entrada="sobe"], [data-entrada="titulo"]) {
+  animation: entrada-hero 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.1s + var(--ordem, 0) * 0.12s);
+}
+
+html[data-abertura="tocar"] :is([data-entrada="sobe"], [data-entrada="titulo"]) {
+  animation-name: subida-hero;
+  animation-delay: calc(1.2s + var(--ordem, 0) * 0.12s);
+}
+
+html[data-movimento="on"] [data-entrada="zoom"] {
+  animation: aproximacao-hero 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+html[data-abertura="tocar"] [data-entrada="zoom"] {
+  animation-delay: 1.2s;
+}
+
+/* No computador o título entra linha a linha, pelo GSAP. */
+@media (min-width: 1024px) and (hover: hover) {
+  html[data-movimento="on"] [data-entrada="titulo"] {
+    animation: none;
+  }
+
+  html[data-movimento="on"] [data-entrada="titulo"]:not([data-dividido]) {
+    opacity: 0;
+  }
+}
+
+@keyframes entrada-hero {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subida-hero {
+  from {
+    transform: translateY(28px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes aproximacao-hero {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
   }
 }
 

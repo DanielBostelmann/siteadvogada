@@ -1,25 +1,24 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
+import { type ContextSafeFunc, useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 import "lenis/dist/lenis.css";
 
-import { desenharMoldura } from "@/lib/efeitos";
+import { aoEntrar, desenharMoldura, revelar } from "@/lib/efeitos";
+import { carregarExtrasDeMovimento, comExtras } from "@/lib/extras-de-movimento";
 import {
   ABERTURA,
   CONSULTA,
   CURVA,
   DURACAO,
   ESCALONAMENTO,
-  GATILHO,
+  LINHA_DE_ENTRADA,
 } from "@/lib/movimento";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP);
 
 declare global {
   interface Window {
@@ -27,128 +26,144 @@ declare global {
   }
 }
 
-const ESCONDIDO = { autoAlpha: 0, y: 28 };
-const VISIVEL = { autoAlpha: 1, y: 0, duration: DURACAO.media, ease: CURVA.entrada };
+/** Tempo até a abertura e a entrada do hero terminarem, com folga. */
+const FIM_DA_ABERTURA_MS = (ABERTURA.duracao + ABERTURA.cortina + 1.6) * 1000;
 
 /** Rolagem suave e as revelações comuns a todas as páginas. */
 export const MovimentoGlobal = () => {
   const caminho = usePathname();
 
+  // A abertura toca uma vez. Depois dela, a entrada do hero é dada por
+  // encerrada no mesmo instante, para a troca de regra no CSS não a repetir.
   useEffect(() => {
-    if (!window.matchMedia(CONSULTA.movimento).matches) return;
+    const raiz = document.documentElement;
+    if (raiz.dataset.abertura !== "tocar") return;
 
-    const lenis = new Lenis({ autoRaf: false });
-    const avancar = (tempo: number) => lenis.raf(tempo * 1000);
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add(avancar);
-    gsap.ticker.lagSmoothing(0);
+    const encerrar = window.setTimeout(() => {
+      for (const elemento of document.querySelectorAll("[data-entrada]")) {
+        elemento.setAttribute("data-entrada", "feita");
+      }
+      raiz.dataset.abertura = "feita";
+    }, FIM_DA_ABERTURA_MS);
+    return () => window.clearTimeout(encerrar);
+  }, []);
 
-    // Âncoras da mesma página rolam com suavidade, sem recarregar a rota.
-    const rolarAteAncora = (evento: MouseEvent) => {
-      const link = (evento.target as Element).closest?.("a[href*='#']");
-      if (!(link instanceof HTMLAnchorElement)) return;
-      const destino = new URL(link.href);
-      if (destino.pathname !== window.location.pathname || !destino.hash) return;
-      const alvo = document.querySelector<HTMLElement>(destino.hash);
-      if (!alvo) return;
+  // Rolagem suave só no computador; no celular a rolagem é a nativa.
+  useEffect(() => {
+    if (!window.matchMedia(CONSULTA.computador).matches) return;
+    let desligar = () => {};
+    let ativo = true;
 
-      evento.preventDefault();
-      window.history.pushState(null, "", destino.hash);
-      // O recuo do cabeçalho fixo vem do scroll-padding-top do CSS.
-      lenis.scrollTo(alvo);
-    };
-    document.addEventListener("click", rolarAteAncora, true);
+    void carregarExtrasDeMovimento().then(({ Lenis, ScrollTrigger }) => {
+      if (!ativo) return;
+      const lenis = new Lenis({ autoRaf: false });
+      const avancar = (tempo: number) => lenis.raf(tempo * 1000);
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add(avancar);
+      gsap.ticker.lagSmoothing(0);
 
-    // A abertura toca uma vez; depois disso, voltar à página inicial não a repete.
-    const encerrarAbertura = window.setTimeout(
-      () => delete document.documentElement.dataset.abertura,
-      (ABERTURA.duracao + ABERTURA.cortina) * 1000 + 200,
-    );
+      // Âncoras da mesma página rolam com suavidade, sem recarregar a rota.
+      const rolarAteAncora = (evento: MouseEvent) => {
+        const link = (evento.target as Element).closest?.("a[href*='#']");
+        if (!(link instanceof HTMLAnchorElement)) return;
+        const destino = new URL(link.href);
+        if (destino.pathname !== window.location.pathname || !destino.hash) return;
+        const alvo = document.querySelector<HTMLElement>(destino.hash);
+        if (!alvo) return;
+
+        evento.preventDefault();
+        window.history.pushState(null, "", destino.hash);
+        // O recuo do cabeçalho fixo vem do scroll-padding-top do CSS.
+        lenis.scrollTo(alvo);
+      };
+      document.addEventListener("click", rolarAteAncora, true);
+
+      desligar = () => {
+        document.removeEventListener("click", rolarAteAncora, true);
+        gsap.ticker.remove(avancar);
+        lenis.destroy();
+      };
+    });
 
     return () => {
-      window.clearTimeout(encerrarAbertura);
-      document.removeEventListener("click", rolarAteAncora, true);
-      gsap.ticker.remove(avancar);
-      lenis.destroy();
+      ativo = false;
+      desligar();
     };
   }, []);
 
   useGSAP(
-    () => {
+    (_contexto, protegido) => {
+      // As animações nascem depois, quando cada elemento entra na tela;
+      // "seguro" as liga ao contexto, para serem desfeitas na troca de página.
+      const seguro: ContextSafeFunc = protegido ?? ((funcao) => funcao);
       window.__movimentoPronto = true;
       const consultas = gsap.matchMedia();
+      const todos = (seletor: string) => gsap.utils.toArray<HTMLElement>(seletor);
 
       consultas.add(CONSULTA.movimento, () => {
-        for (const elemento of gsap.utils.toArray<HTMLElement>("[data-revelar]")) {
-          gsap.fromTo(elemento, ESCONDIDO, {
-            ...VISIVEL,
-            scrollTrigger: { trigger: elemento, start: GATILHO.entrada, once: true },
-          });
-        }
-
-        for (const grupo of gsap.utils.toArray<HTMLElement>("[data-revelar-grupo]")) {
-          gsap.fromTo(grupo.children, ESCONDIDO, {
-            ...VISIVEL,
-            duration: DURACAO.curta,
-            stagger: ESCALONAMENTO.itens,
-            scrollTrigger: { trigger: grupo, start: GATILHO.entrada, once: true },
-          });
-          grupo.setAttribute("data-revelado", "");
-        }
-
-        for (const moldura of gsap.utils.toArray<HTMLElement>(
-          '[data-moldura="rolagem"]',
-        )) {
-          ScrollTrigger.create({
-            trigger: moldura,
-            start: GATILHO.cena,
-            once: true,
-            onEnter: () => desenharMoldura(moldura),
-          });
-        }
-
-        for (const filete of gsap.utils.toArray<HTMLElement>("[data-filete]")) {
-          gsap.fromTo(
-            filete,
-            { scaleX: 0 },
-            {
-              scaleX: 1,
-              duration: DURACAO.longa,
-              ease: CURVA.mascara,
-              scrollTrigger: { trigger: filete, start: GATILHO.entrada, once: true },
-            },
-          );
-        }
-
-        for (const imagem of gsap.utils.toArray<HTMLElement>(
-          '[data-movimento="zoom"]',
-        )) {
-          gsap.fromTo(
-            imagem,
-            { scale: 1.08 },
-            { scale: 1, duration: DURACAO.longa, ease: CURVA.entrada },
-          );
-        }
+        const parar = [
+          aoEntrar(
+            todos("[data-revelar]"),
+            LINHA_DE_ENTRADA.padrao,
+            seguro((elemento: Element) => {
+              revelar(elemento);
+            }),
+          ),
+          aoEntrar(
+            todos("[data-revelar-grupo]"),
+            LINHA_DE_ENTRADA.padrao,
+            seguro((grupo: Element) => {
+              revelar(grupo.children, {
+                duration: DURACAO.curta,
+                stagger: ESCALONAMENTO.itens,
+              });
+              grupo.setAttribute("data-revelado", "");
+            }),
+          ),
+          aoEntrar(
+            todos('[data-moldura="rolagem"]'),
+            LINHA_DE_ENTRADA.cena,
+            seguro((moldura: Element) => {
+              desenharMoldura(moldura);
+            }),
+          ),
+          aoEntrar(
+            todos("[data-filete]"),
+            LINHA_DE_ENTRADA.padrao,
+            seguro((filete: Element) => {
+              gsap.fromTo(
+                filete,
+                { opacity: 1, scaleX: 0 },
+                { scaleX: 1, duration: DURACAO.longa, ease: CURVA.mascara },
+              );
+            }),
+          ),
+        ];
+        return () => parar.forEach((desligar) => desligar());
       });
 
-      consultas.add(CONSULTA.computador, () => {
-        for (const bloco of gsap.utils.toArray<HTMLElement>("[data-paralaxe]")) {
-          gsap.fromTo(
-            bloco,
-            { yPercent: 6 },
-            {
-              yPercent: -6,
-              ease: "none",
-              scrollTrigger: {
-                trigger: bloco,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-              },
-            },
-          );
-        }
-      });
+      consultas.add(CONSULTA.computador, () =>
+        comExtras(
+          seguro(() => {
+            for (const bloco of todos("[data-paralaxe]")) {
+              gsap.fromTo(
+                bloco,
+                { yPercent: 6 },
+                {
+                  yPercent: -6,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: bloco,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                  },
+                },
+              );
+            }
+          }),
+        ),
+      );
     },
     { dependencies: [caminho], revertOnUpdate: true },
   );

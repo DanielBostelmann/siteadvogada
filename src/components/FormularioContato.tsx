@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useState } from "react";
+import { startTransition, useActionState, useState } from "react";
 
 import { enviarContato } from "@/app/acoes/contato";
 import { site } from "@/config/site";
@@ -12,9 +12,7 @@ import {
   type EstadoContato,
   LIMITE_MENSAGEM,
   OPCOES_DE_AREA,
-  lerFormulario,
-  validarContato,
-} from "@/lib/contato";
+} from "@/lib/contato-campos";
 import { linkWhatsApp } from "@/lib/whatsapp";
 
 const ESTADO_INICIAL: EstadoContato = { status: "inicial" };
@@ -49,17 +47,24 @@ export const FormularioContato = () => {
     errosNoNavegador ?? (estado.status === "invalido" ? estado.erros : {});
   const valores = "valores" in estado ? estado.valores : null;
 
-  const validarAntesDeEnviar = (evento: React.FormEvent<HTMLFormElement>) => {
-    const formulario = evento.currentTarget;
-    const { erros: encontrados } = validarContato(
-      lerFormulario(new FormData(formulario)),
-    );
-    setErrosNoNavegador(encontrados);
-    if (!encontrados) return;
-
+  // Valida no navegador antes de enviar. O validador (Zod) é baixado só
+  // neste momento; sem JavaScript, o formulário segue direto para o servidor,
+  // que valida de novo.
+  const validarEEnviar = async (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
-    const primeiro = Object.keys(encontrados)[0];
-    formulario.querySelector<HTMLElement>(`[name="${primeiro}"]`)?.focus();
+    const formulario = evento.currentTarget;
+    const dados = new FormData(formulario);
+
+    const { lerFormulario, validarContato } = await import("@/lib/contato");
+    const { erros: encontrados } = validarContato(lerFormulario(dados));
+    setErrosNoNavegador(encontrados);
+
+    if (encontrados) {
+      const primeiro = Object.keys(encontrados)[0];
+      formulario.querySelector<HTMLElement>(`[name="${primeiro}"]`)?.focus();
+      return;
+    }
+    startTransition(() => enviar(dados));
   };
 
   const atributosDeErro = (campo: CampoContato) => ({
@@ -86,7 +91,7 @@ export const FormularioContato = () => {
     <form
       id="formulario"
       action={enviar}
-      onSubmit={validarAntesDeEnviar}
+      onSubmit={validarEEnviar}
       noValidate
       aria-label="Formulário de contato"
       data-revelar-grupo
@@ -155,10 +160,7 @@ export const FormularioContato = () => {
         </label>
         <label className="block sm:col-span-2">
           <span className={ROTULO_CAMPO}>Área de interesse</span>
-          {/* A chave remonta o campo: o React não restaura o defaultValue de
-              um select depois de limpar o formulário. */}
           <select
-            key={valores?.area ?? "sem-area"}
             name="area"
             defaultValue={valores?.area ?? ""}
             className={CAMPO}

@@ -35,27 +35,25 @@ export const Contato = () => (
           {contato.texto}
         </p>
 
-        <dl className="mt-10 border-t border-grafite/15">
+        <ul className="mt-10 border-t border-grafite/15">
           {CANAIS.map((canal) => (
-            <div
+            <li
               key={canal.rotulo}
               className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-grafite/15 py-4"
             >
-              <div className="min-w-0">
-                <dt className="rotulo">{canal.rotulo}</dt>
-                <dd className="mt-1">
-                  <a
-                    href={canal.href}
-                    className="link-dourado link-dourado-oculto pb-0.5 font-serif text-xl break-all text-grafite sm:text-2xl"
-                  >
-                    {canal.valor}
-                  </a>
-                </dd>
-              </div>
+              <p className="min-w-0">
+                <span className="rotulo block">{canal.rotulo}</span>
+                <a
+                  href={canal.href}
+                  className="link-dourado link-dourado-oculto mt-1 inline-block pb-0.5 font-serif text-xl break-all text-grafite sm:text-2xl"
+                >
+                  {canal.valor}
+                </a>
+              </p>
               <BotaoCopiar valor={canal.valor} descricao={canal.descricao} />
-            </div>
+            </li>
           ))}
-        </dl>
+        </ul>
 
         <BotaoWhatsApp className="mt-9">{contato.botaoWhatsApp}</BotaoWhatsApp>
 

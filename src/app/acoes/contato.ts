@@ -4,11 +4,8 @@ import { headers } from "next/headers";
 import { Resend } from "resend";
 
 import { site } from "@/config/site";
-import {
-  type EstadoContato,
-  lerFormulario,
-  validarContato,
-} from "@/lib/contato";
+import { lerFormulario, validarContato } from "@/lib/contato";
+import type { EstadoContato } from "@/lib/contato-campos";
 import { permitirEnvio } from "@/lib/limite-envios";
 
 // Remetente: precisa ser de um domínio verificado no Resend. Enquanto o

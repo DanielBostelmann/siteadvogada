@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 
 import { site } from "@/config/site";
 import { privacidade } from "@/content/privacidade";
+import { metadadosDaPagina } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `${privacidade.titulo} | ${site.marcaCurta}`,
-  description:
+export const metadata: Metadata = metadadosDaPagina({
+  titulo: `${privacidade.titulo} | ${site.marcaCurta}`,
+  descricao:
     "Como são tratados os dados pessoais enviados pelo formulário de contato, conforme a LGPD.",
-  alternates: { canonical: "/politica-de-privacidade" },
-};
+  caminho: "/politica-de-privacidade",
+});
 
 // O texto é uma minuta: ver o aviso em src/content/privacidade.ts.
 export default function PoliticaDePrivacidade() {

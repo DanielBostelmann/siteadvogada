@@ -6,6 +6,8 @@ type FotoProps = {
   sizes: string;
   /** Só a foto do hero é pré-carregada (PRD, seção 4). */
   preload?: boolean;
+  /** Aproximação lenta na entrada (hero). */
+  aproximar?: boolean;
   className?: string;
   imagemClassName?: string;
 };
@@ -16,6 +18,7 @@ export const Foto = ({
   alt,
   sizes,
   preload = false,
+  aproximar = false,
   className = "",
   imagemClassName = "object-cover",
 }: FotoProps) => (
@@ -28,6 +31,8 @@ export const Foto = ({
       fill
       sizes={sizes}
       preload={preload}
+      fetchPriority={preload ? "high" : undefined}
+      data-entrada={aproximar ? "zoom" : undefined}
       placeholder="blur"
       className={imagemClassName}
     />
