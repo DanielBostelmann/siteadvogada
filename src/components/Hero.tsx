@@ -79,12 +79,12 @@ export const Hero = () => (
         <div
           data-entrada="sobe"
           style={ordem(5)}
-          className="flex h-20 items-center justify-between gap-6 lg:col-span-12 lg:row-start-2 lg:h-24"
+          className="flex h-20 items-center justify-between gap-6 pr-16 lg:col-span-12 lg:row-start-2 lg:h-24 xl:pr-0"
         >
           <p className="rotulo">
             {site.nome} · {site.oab}
           </p>
-          <p aria-hidden="true" className="rotulo flex items-center gap-3">
+          <p aria-hidden="true" className="rotulo hidden items-center gap-3 sm:flex">
             Role
             <span className="block h-10 w-px bg-dourado" />
           </p>

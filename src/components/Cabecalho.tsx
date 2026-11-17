@@ -59,7 +59,7 @@ export const Cabecalho = () => {
             alt={site.marcaCurta}
             width={1481}
             height={264}
-            preload
+            loading="eager"
             sizes="250px"
             className="h-8 w-auto lg:h-11"
           />
