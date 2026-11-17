@@ -1,6 +1,150 @@
 {
   "version": 2,
   "skills": {
+    "60fps-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/60fps-animation/SKILL.md",
+      "computedHash": "3783bf5371256b4a496fb3a3ee3e345a66887dc9141091b49984e47bad822811",
+      "installMode": "copy"
+    },
+    "accessible-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/accessible-animation/SKILL.md",
+      "computedHash": "396a43fbb461daa4cb93a2795910459ae96c82937f965906b2b84f2703aef76c",
+      "installMode": "copy"
+    },
+    "ad-creative-video": {
+      "source": "iart-ai/ad-video-skills",
+      "commit": "cc8071678f4225ee7bdccc4506f2468722bb3515",
+      "sourceType": "github",
+      "skillPath": "skills/ad-creative-video/SKILL.md",
+      "computedHash": "8c7089ab4336e3f7498f81b31c29527aa249092fc06153227578a14b10a66f2b",
+      "installMode": "copy"
+    },
+    "after-effects": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/after-effects/SKILL.md",
+      "computedHash": "994d99fd920c23262285dfbb41e9c51b95c85451e8e71dec7257ad699d00e3b7",
+      "installMode": "copy"
+    },
+    "animated-infographic": {
+      "source": "iart-ai/data-animation-skills",
+      "commit": "6570c0c4fbc9daa8d7ac1f1163a890352344206b",
+      "sourceType": "github",
+      "skillPath": "skills/animated-infographic/SKILL.md",
+      "computedHash": "8581dfd7d12292d16baab6194b70dedab98099222f24e679ce63590de2a7ba75",
+      "installMode": "copy"
+    },
+    "animation-principles": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/animation-principles/SKILL.md",
+      "computedHash": "429233e8c4a429b072130b231afb072eace2f5f5e9d6d7c7566ed8c2bd4aec83",
+      "installMode": "copy"
+    },
+    "ascii-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/ascii-animation/SKILL.md",
+      "computedHash": "b8b5f56046c43c82c3300d46c4295014c590bc340cb9351cfbe89f41f0a8f2b7",
+      "installMode": "copy"
+    },
+    "audiogram": {
+      "source": "iart-ai/youtube-video-skills",
+      "commit": "7838388571a3a6301bf5633e91941f9dfed0abfd",
+      "sourceType": "github",
+      "skillPath": "skills/audiogram/SKILL.md",
+      "computedHash": "eaffc934304b10d0eb08c59ac0217845f19e00ea0683f668d486e3fc91abad2f",
+      "installMode": "copy"
+    },
+    "beat-sync-editing": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/beat-sync-editing/SKILL.md",
+      "computedHash": "0d5cbde0dd3707e9fd688fdaf407648dbbb5792da3513d5abc6f5dc0a108640b",
+      "installMode": "copy"
+    },
+    "brand-motion-guidelines": {
+      "source": "iart-ai/freelance-motion-skills",
+      "commit": "9f294eb6df73cde7e2dea235f42275df11a16466",
+      "sourceType": "github",
+      "skillPath": "skills/brand-motion-guidelines/SKILL.md",
+      "computedHash": "bfbc7adf7580dc72844c7bda5f8d5cb2912a6110e2109e89bc48dd3e350bab41",
+      "installMode": "copy"
+    },
+    "caption-animation": {
+      "source": "iart-ai/tiktok-video-skills",
+      "commit": "88e7152fc2710fa16852d013959cfd988a8adc8b",
+      "sourceType": "github",
+      "skillPath": "skills/caption-animation/SKILL.md",
+      "computedHash": "85e2df35826e3dda204d0dd9f1238d649eebcc1037dd8c6ee924304c19eed6e8",
+      "installMode": "copy"
+    },
+    "chart-animation": {
+      "source": "iart-ai/data-animation-skills",
+      "commit": "6570c0c4fbc9daa8d7ac1f1163a890352344206b",
+      "sourceType": "github",
+      "skillPath": "skills/chart-animation/SKILL.md",
+      "computedHash": "32b27babec7201892b2c4dfb620c98c707db5f1a47fdcb0426088b53c5da2a70",
+      "installMode": "copy"
+    },
+    "client-revisions": {
+      "source": "iart-ai/freelance-motion-skills",
+      "commit": "9f294eb6df73cde7e2dea235f42275df11a16466",
+      "sourceType": "github",
+      "skillPath": "skills/client-revisions/SKILL.md",
+      "computedHash": "09ffd9cd3508ad859fa84b1024d381b0c99cb01236010b605b8824db6c181360",
+      "installMode": "copy"
+    },
+    "color-motion": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/color-motion/SKILL.md",
+      "computedHash": "9a903f9da53b2c5f7128020a7d5ca8aa05b56fce24e9e2a09c10fd3a7f2e788a",
+      "installMode": "copy"
+    },
+    "countdown-video": {
+      "source": "iart-ai/tiktok-video-skills",
+      "commit": "88e7152fc2710fa16852d013959cfd988a8adc8b",
+      "sourceType": "github",
+      "skillPath": "skills/countdown-video/SKILL.md",
+      "computedHash": "0880e2c2c689a9b19d72946e75d04b1e3e780aa8877cae43ec11738bb9a367b1",
+      "installMode": "copy"
+    },
+    "creative-brief": {
+      "source": "iart-ai/freelance-motion-skills",
+      "commit": "9f294eb6df73cde7e2dea235f42275df11a16466",
+      "sourceType": "github",
+      "skillPath": "skills/creative-brief/SKILL.md",
+      "computedHash": "3b92f77d0062a352b1b2756c1303c263c2ac7b5df1e9104a892f8efcc805f809",
+      "installMode": "copy"
+    },
+    "diagram-animation": {
+      "source": "iart-ai/explainer-video-skills",
+      "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
+      "sourceType": "github",
+      "skillPath": "skills/diagram-animation/SKILL.md",
+      "computedHash": "66ff5001feaeabfe500f66e52c5547f0ef09fd1475a6242cacd7a829c2b41e2a",
+      "installMode": "copy"
+    },
+    "explainer-video": {
+      "source": "iart-ai/explainer-video-skills",
+      "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
+      "sourceType": "github",
+      "skillPath": "skills/explainer-video/SKILL.md",
+      "computedHash": "87ccb2ee8ed2aff4f69afb42bcae9c882a09425c53a1e1bb5efa1cb0d9f2c29c",
+      "installMode": "copy"
+    },
     "figma": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
@@ -15,6 +159,22 @@
       "sourceType": "github",
       "skillPath": "SKILL.md",
       "computedHash": "e84b2bd2114653df1880d72c7b8780aca521e2c7b42a3c3b34122ef06be568c0",
+      "installMode": "copy"
+    },
+    "generative-illustration": {
+      "source": "iart-ai/generative-illustration-skills",
+      "commit": "e7d62437c875fc8ad5eff6e90fe0e25b30e43933",
+      "sourceType": "github",
+      "skillPath": "skills/generative-illustration/SKILL.md",
+      "computedHash": "f2aaee7010b284579ea3f2eb9d4e59108da158d873bd0d8d99bb28c09c3e3f0a",
+      "installMode": "copy"
+    },
+    "glassmorphism": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/glassmorphism/SKILL.md",
+      "computedHash": "52c31c76c1ce3c52485ed43c3dc36796c833972a0f916215392c2b611209a2dc",
       "installMode": "copy"
     },
     "gsap-core": {
@@ -81,6 +241,14 @@
       "computedHash": "d05b56284eea0118d481b8c673aff27cae66199282995bfe78315785f561002d",
       "installMode": "copy"
     },
+    "gsap-web": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-web/SKILL.md",
+      "computedHash": "acd6638268c8bf2d9b0eb935472659dfbc0f072a5237d486e462235b32045177",
+      "installMode": "copy"
+    },
     "hyperframes": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
@@ -113,12 +281,108 @@
       "computedHash": "d5000e85e70990dc597105ee5a6476fae0bd34b208d3b22d61ee6cc3a0cfb9cb",
       "installMode": "copy"
     },
+    "isometric-animation": {
+      "source": "iart-ai/explainer-video-skills",
+      "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
+      "sourceType": "github",
+      "skillPath": "skills/isometric-animation/SKILL.md",
+      "computedHash": "4414e29457c5fb508b722520419b31a2beefc476674a97457b4adc4c4d6ab8c7",
+      "installMode": "copy"
+    },
+    "javascript-animation": {
+      "source": "iart-ai/javascript-animation-skills",
+      "commit": "060f7467a6e5ae5b57c90c9cb1b3508c13b88e49",
+      "sourceType": "github",
+      "skillPath": "skills/javascript-animation/SKILL.md",
+      "computedHash": "8cf58410b8ebc1434f20b775472f6f785ff24e03153f63ff1d4271005ca8f2ac",
+      "installMode": "copy"
+    },
+    "kinetic-typography": {
+      "source": "iart-ai/kinetic-typography-skills",
+      "commit": "2b79c81230c6647a344844f9ed53b6fa07f3f1f9",
+      "sourceType": "github",
+      "skillPath": "skills/kinetic-typography/SKILL.md",
+      "computedHash": "7f5a42a68017f67a8dc140ecf676820319cd22b98b909f9e8b615448baf19d8c",
+      "installMode": "copy"
+    },
+    "launch-video": {
+      "source": "iart-ai/ad-video-skills",
+      "commit": "cc8071678f4225ee7bdccc4506f2468722bb3515",
+      "sourceType": "github",
+      "skillPath": "skills/launch-video/SKILL.md",
+      "computedHash": "6ded8ddfd08de6207fe725dbb99ceba4eac59312521a590c1c7a6626b68a2ebe",
+      "installMode": "copy"
+    },
+    "logo-animation": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/logo-animation/SKILL.md",
+      "computedHash": "83fe1e51ea228454bcb6aac125fdf69b191b410f75abff250d848f88a27c3581",
+      "installMode": "copy"
+    },
+    "lottie-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/lottie-animation/SKILL.md",
+      "computedHash": "1d3c9dac2ff3e7e54f1fb5a622ed5667992efab37966256a1906276d86b254b9",
+      "installMode": "copy"
+    },
+    "lower-thirds": {
+      "source": "iart-ai/lower-thirds-skills",
+      "commit": "58d3623da95a2c97a4890a2d3f6d9d67e040b3d7",
+      "sourceType": "github",
+      "skillPath": "skills/lower-thirds/SKILL.md",
+      "computedHash": "263be3117317f581ebbbae54f1bd4932a36588267270c3c73958f03f5d44f282",
+      "installMode": "copy"
+    },
+    "manim": {
+      "source": "iart-ai/manim-skills",
+      "commit": "3e989cb044f6a6fed8c07b06dddade6e3463d7ac",
+      "sourceType": "github",
+      "skillPath": "skills/manim/SKILL.md",
+      "computedHash": "a6ce52d4b956739c9a73b0d6b8687305e3fb06d06fdedf041a3ad2da7e99bfe7",
+      "installMode": "copy"
+    },
+    "map-animation": {
+      "source": "iart-ai/map-animation-skills",
+      "commit": "c8ef8463f5a4a8aa35ff0c6c17f42e52bbf588a5",
+      "sourceType": "github",
+      "skillPath": "skills/map-animation/SKILL.md",
+      "computedHash": "d8911b29ae7767b4b22e1c26e007e687b06b0494c0b3a442d7c51a16107eaf14",
+      "installMode": "copy"
+    },
     "media-use": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
       "sourceType": "github",
       "skillPath": "skills/media-use/SKILL.md",
       "computedHash": "e5f5ea23a40df5489902439ebc8c6815784c5cea3b9a8391b68eb5db621f0c21",
+      "installMode": "copy"
+    },
+    "micro-interaction": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/micro-interaction/SKILL.md",
+      "computedHash": "35fe04bed325e1f7cdbf7d25e7327f33b868b854a999eaa0d523a0899331d071",
+      "installMode": "copy"
+    },
+    "motion-art-direction": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/motion-art-direction/SKILL.md",
+      "computedHash": "4a43cd9cd57b01e77e3c76e63a4722b3c8a74277aae1d9d471a93e7fea8a7038",
+      "installMode": "copy"
+    },
+    "motion-background": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/motion-background/SKILL.md",
+      "computedHash": "73d38e3b04071caff0df7535e65344914a5952b54dad1236d6fbab262ef07dce",
       "installMode": "copy"
     },
     "motion-design": {
@@ -129,6 +393,14 @@
       "computedHash": "bf661a366f1a51e6ccee48f1b3addbc2e5b1bf69321d99157619fd4a52c1e0d7",
       "installMode": "copy"
     },
+    "motion-pricing": {
+      "source": "iart-ai/freelance-motion-skills",
+      "commit": "9f294eb6df73cde7e2dea235f42275df11a16466",
+      "sourceType": "github",
+      "skillPath": "skills/motion-pricing/SKILL.md",
+      "computedHash": "2fc1e8c6f9eeed60f3352679bbd9d43f18c1f7521b5c5ebb09588e6ca64402f3",
+      "installMode": "copy"
+    },
     "onetake": {
       "source": "feitangyuan/onetake",
       "commit": "abb6d17279cdc749e27e99aa534a062d8fd01ced",
@@ -137,12 +409,44 @@
       "computedHash": "6f86ced042fc602fbd6f873706f6b3860871551f33b0ff76b09cb9f779d7869f",
       "installMode": "copy"
     },
+    "page-transition-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/page-transition-animation/SKILL.md",
+      "computedHash": "23248658c4bbae44a1a11a66a350dffd2cb97a20ebca20dca9369ec63365ef78",
+      "installMode": "copy"
+    },
     "particle-system": {
       "source": "iart-ai/webgl-animation-skills",
       "commit": "0041933813688c357804f7b13dcb85095c5a3210",
       "sourceType": "github",
       "skillPath": "skills/particle-system/SKILL.md",
       "computedHash": "e901340854fb896307236638e7333ac23c21483c6cdf79613daec658169f64b7",
+      "installMode": "copy"
+    },
+    "photo-slideshow": {
+      "source": "iart-ai/ecommerce-video-skills",
+      "commit": "a430fbbb7660783c421ad0a145bcc1c98d6f0b7b",
+      "sourceType": "github",
+      "skillPath": "skills/photo-slideshow/SKILL.md",
+      "computedHash": "bc93114885b95a086d802aaac85f43227a6f8e6216f382ed180db3e8e59f6b53",
+      "installMode": "copy"
+    },
+    "presentation-video": {
+      "source": "iart-ai/data-animation-skills",
+      "commit": "6570c0c4fbc9daa8d7ac1f1163a890352344206b",
+      "sourceType": "github",
+      "skillPath": "skills/presentation-video/SKILL.md",
+      "computedHash": "52eec9811ecea03a77026da27d1ec873ee702a4e54116d845cac26d473a1fbb4",
+      "installMode": "copy"
+    },
+    "promo-video": {
+      "source": "iart-ai/ecommerce-video-skills",
+      "commit": "a430fbbb7660783c421ad0a145bcc1c98d6f0b7b",
+      "sourceType": "github",
+      "skillPath": "skills/promo-video/SKILL.md",
+      "computedHash": "ebbdaf6a9b36db8f5a17df3f3b1129d5c5038a6838ee7269afedf0c2e1a4d8ff",
       "installMode": "copy"
     },
     "remotion-best-practices": {
@@ -257,6 +561,14 @@
       "computedHash": "e469c92611c08ca705bd510965650e249a983d54703b1b5ca7cfb7165deb0f8f",
       "installMode": "copy"
     },
+    "remotion-video": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-video/SKILL.md",
+      "computedHash": "6ca1bfb591dcc7cf856ccec5d65750c3d6106cfebd39891ef77b650e7eb3ef98",
+      "installMode": "copy"
+    },
     "reverse-any-video": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
@@ -281,12 +593,36 @@
       "computedHash": "916275255903d5b259a36ef5d71ba010629e37d61325c0cc52b8e2d462c9ef92",
       "installMode": "copy"
     },
+    "short-form-video": {
+      "source": "iart-ai/tiktok-video-skills",
+      "commit": "88e7152fc2710fa16852d013959cfd988a8adc8b",
+      "sourceType": "github",
+      "skillPath": "skills/short-form-video/SKILL.md",
+      "computedHash": "f55f26c6bb88e7391044300c8db24e732a7ba3e4f632b392201526fdf7a87e86",
+      "installMode": "copy"
+    },
+    "shot-composition": {
+      "source": "iart-ai/motion-design-skills",
+      "commit": "b85e50c4cef5ff17aa2187a10d49d2dae9226c74",
+      "sourceType": "github",
+      "skillPath": "skills/shot-composition/SKILL.md",
+      "computedHash": "a2d2e603a077f879bcaacd696e5cef5a4b62b1f0fc4d21ecf5e446466b7bfdb4",
+      "installMode": "copy"
+    },
     "slideshow": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
       "sourceType": "github",
       "skillPath": "skills/slideshow/SKILL.md",
       "computedHash": "1f3adb414853a124eb06b767d531048d68573a468b3790dd00bf340fc4a18677",
+      "installMode": "copy"
+    },
+    "soundtrack": {
+      "source": "iart-ai/javascript-animation-skills",
+      "commit": "060f7467a6e5ae5b57c90c9cb1b3508c13b88e49",
+      "sourceType": "github",
+      "skillPath": "skills/soundtrack/SKILL.md",
+      "computedHash": "e4e45a3dbd48f597ae348dbc5b1c21029d75dd9f0bf684055adb29a340717bb8",
       "installMode": "copy"
     },
     "style-sampling": {
@@ -297,12 +633,84 @@
       "computedHash": "621ca6c3126f0c499fcb7e12c976230c86aa60a985bf18e77f9ce277678b2bb3",
       "installMode": "copy"
     },
+    "svg-animation": {
+      "source": "iart-ai/web-animation-skills",
+      "commit": "ed3a045192679b24d32090ee7a983871311ababd",
+      "sourceType": "github",
+      "skillPath": "skills/svg-animation/SKILL.md",
+      "computedHash": "cfcf1a801009db1ee4d5141c749acbf6c5eff23534610c4ac3c87c16580809df",
+      "installMode": "copy"
+    },
+    "talking-head": {
+      "source": "iart-ai/talking-head-skills",
+      "commit": "eac1f6b01467f6f95d8ab7602310ba0ff67ed91b",
+      "sourceType": "github",
+      "skillPath": "skills/talking-head/SKILL.md",
+      "computedHash": "b35ffb631676d76a9ba5770da17de84c1557cb7cc55be59d15993b6538f0ecc2",
+      "installMode": "copy"
+    },
+    "talking-head-b-roll": {
+      "source": "iart-ai/b-roll-skills",
+      "commit": "bcd56742a8a99edaa699a6f7bc5a45922a8ec567",
+      "sourceType": "github",
+      "skillPath": "skills/talking-head-b-roll/SKILL.md",
+      "computedHash": "6eba23c4ccaca57f373d97cbbfcfbef9ec12f5fb2c1e4511b7144855ea64f45e",
+      "installMode": "copy"
+    },
+    "testimonial-video": {
+      "source": "iart-ai/ad-video-skills",
+      "commit": "cc8071678f4225ee7bdccc4506f2468722bb3515",
+      "sourceType": "github",
+      "skillPath": "skills/testimonial-video/SKILL.md",
+      "computedHash": "ff757c49207a53c3a1eec8d16a8d8ae70ae9e291183c100a606bff78ddead4ba",
+      "installMode": "copy"
+    },
+    "text-message-animation": {
+      "source": "iart-ai/text-message-video-skills",
+      "commit": "10ae6bb32e89519c904b8f7950479ff655f839aa",
+      "sourceType": "github",
+      "skillPath": "skills/text-message-animation/SKILL.md",
+      "computedHash": "cb616d29852d333b7944c704cf0e6cc6f001ccf89d8c0acc462f8055a71c633c",
+      "installMode": "copy"
+    },
     "threejs-animation": {
       "source": "iart-ai/webgl-animation-skills",
       "commit": "0041933813688c357804f7b13dcb85095c5a3210",
       "sourceType": "github",
       "skillPath": "skills/threejs-animation/SKILL.md",
       "computedHash": "0ba8eea2da421691a047a1a3e4b4d328f513e5a7685edd3da7674b69895afc78",
+      "installMode": "copy"
+    },
+    "video-delivery-specs": {
+      "source": "iart-ai/freelance-motion-skills",
+      "commit": "9f294eb6df73cde7e2dea235f42275df11a16466",
+      "sourceType": "github",
+      "skillPath": "skills/video-delivery-specs/SKILL.md",
+      "computedHash": "a9b960c499f38d1fdff62d82c705cc9e0fb4558cbe56cc600e534f851e300577",
+      "installMode": "copy"
+    },
+    "whiteboard-animation": {
+      "source": "iart-ai/explainer-video-skills",
+      "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
+      "sourceType": "github",
+      "skillPath": "skills/whiteboard-animation/SKILL.md",
+      "computedHash": "f6e158606e6abe73ef173c02b48b603203a3f87123b346b2596dcfe2ee18575c",
+      "installMode": "copy"
+    },
+    "wrapped-video": {
+      "source": "iart-ai/explainer-video-skills",
+      "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
+      "sourceType": "github",
+      "skillPath": "skills/wrapped-video/SKILL.md",
+      "computedHash": "4dfa280fe1a0846abc0ed5d1583031e2e78d1e0fc1788702d5ff043dcb486919",
+      "installMode": "copy"
+    },
+    "youtube-intro-outro": {
+      "source": "iart-ai/youtube-video-skills",
+      "commit": "7838388571a3a6301bf5633e91941f9dfed0abfd",
+      "sourceType": "github",
+      "skillPath": "skills/youtube-intro-outro/SKILL.md",
+      "computedHash": "213a6f4c96c1ac4fcb9f1ad04777b9488aac560b6c13de67b0b4521e5fe79c69",
       "installMode": "copy"
     }
   }
