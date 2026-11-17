@@ -45,7 +45,7 @@ export const Contato = () => (
                 <span className="rotulo block">{canal.rotulo}</span>
                 <a
                   href={canal.href}
-                  className="link-dourado link-dourado-oculto mt-1 inline-block pb-0.5 font-serif text-xl break-all text-grafite sm:text-2xl"
+                  className="link-dourado link-dourado-oculto inline-flex min-h-11 items-center font-serif text-xl break-all text-grafite sm:text-2xl"
                 >
                   {canal.valor}
                 </a>

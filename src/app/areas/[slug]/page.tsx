@@ -59,7 +59,7 @@ export default async function PaginaArea({
         <div className="absolute inset-x-0 bottom-0">
           <div className="container-site pb-8 lg:pb-14" data-revelar-grupo>
             <nav aria-label="Você está em" className="rotulo">
-              <Link href="/#areas" className="link-dourado pb-1">
+              <Link href="/#areas" className="link-dourado inline-flex min-h-11 items-center">
                 Áreas de atuação
               </Link>
             </nav>

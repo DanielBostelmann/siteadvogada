@@ -51,7 +51,7 @@ export const Cabecalho = () => {
         <Link
           href="/#inicio"
           aria-label={`${site.marcaCurta} — início`}
-          className="relative z-50 shrink-0"
+          className="relative z-50 flex min-h-11 shrink-0 items-center"
           onClick={fecharMenu}
         >
           <Image

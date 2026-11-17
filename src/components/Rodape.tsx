@@ -7,7 +7,9 @@ import { areas } from "@/content/areas";
 
 const TITULO_COLUNA =
   "text-[0.8125rem] font-medium tracking-[0.2em] text-dourado uppercase";
-const LINK = "text-[0.9375rem] text-off-white/80 hover:text-off-white";
+// min-h-11: área de toque de 44 px (PRD, seção 9).
+const LINK =
+  "inline-flex min-h-11 min-w-11 items-center text-[0.9375rem] text-off-white/80 hover:text-off-white";
 
 const AnoCorrente = async () => {
   "use cache";
@@ -37,7 +39,7 @@ export const Rodape = () => (
 
       <nav aria-label="Rodapé" className="lg:col-span-2 lg:col-start-4">
         <h2 className={TITULO_COLUNA}>Navegação</h2>
-        <ul className="mt-6 space-y-3">
+        <ul className="mt-4">
           {navegacao.map((item) => (
             <li key={item.href}>
               <Link href={item.href} className={LINK}>
@@ -50,7 +52,7 @@ export const Rodape = () => (
 
       <nav aria-label="Áreas de atuação" className="lg:col-span-3">
         <h2 className={TITULO_COLUNA}>Áreas de atuação</h2>
-        <ul className="mt-6 space-y-3">
+        <ul className="mt-4">
           {areas.map((area) => (
             <li key={area.slug}>
               <Link href={`/areas/${area.slug}`} className={LINK}>
@@ -63,7 +65,7 @@ export const Rodape = () => (
 
       <div className="lg:col-span-4">
         <h2 className={TITULO_COLUNA}>Contato</h2>
-        <ul className="mt-6 space-y-3">
+        <ul className="mt-4">
           <li>
             <a href={`mailto:${site.email}`} className={`${LINK} break-all`}>
               {site.email}
@@ -79,13 +81,13 @@ export const Rodape = () => (
     </div>
 
     <div className="border-t border-off-white/15">
-      <div className="container-site flex flex-col gap-3 py-7 pr-20 text-sm text-off-white/70 sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-site flex flex-col gap-1 py-5 pr-20 text-sm text-off-white/70 sm:flex-row sm:items-center sm:justify-between">
         <p>
           © <AnoCorrente /> {site.marcaCurta}
         </p>
         <Link
           href="/politica-de-privacidade"
-          className="hover:text-off-white"
+          className="inline-flex min-h-11 items-center hover:text-off-white"
         >
           Política de Privacidade
         </Link>
