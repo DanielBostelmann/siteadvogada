@@ -256,6 +256,16 @@ html[data-abertura="tocar"] [data-entrada="zoom"] {
   }
 }
 
+/* Máscara das linhas reveladas pelo SplitText. A máscara tem a altura da
+   linha (entrelinha justa, 1.02 no hero), menor que a caixa da fonte: sem
+   esta folga ela corta acentos em cima e descendentes (g, p, ç) embaixo.
+   O padding amplia a área visível e a margem negativa devolve o espaço,
+   para o layout não se mexer. */
+.linha-mask {
+  padding-block: 0.22em;
+  margin-block: -0.22em;
+}
+
 /* Abertura: tela off-white com o monograma, uma vez por sessão. */
 .abertura {
   display: none;

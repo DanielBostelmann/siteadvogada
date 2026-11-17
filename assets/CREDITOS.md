@@ -8,6 +8,9 @@ limita a recorte, sem distorção:
 
 - `foto-06`: a original é uma captura de tela; foram removidas as barras pretas.
 - `foto-08`: foi cortada a faixa esquerda, onde aparecia uma placa com a logomarca antiga.
+- `foto-05`: o logotipo da Apple na tampa do notebook foi preenchido com a cor
+  da própria tampa (sem ostentação de marcas, PRD seção 10). Rosto e corpo da
+  advogada não foram tocados.
 
 ## Imagens das áreas de atuação
 

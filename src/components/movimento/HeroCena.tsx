@@ -49,11 +49,12 @@ export const HeroCena = ({ children, className }: HeroCenaProps) => {
             SplitText.create(titulo, {
               type: "lines",
               mask: "lines",
+              linesClass: "linha",
               autoSplit: true,
               onSplit: (divisao) => {
                 titulo.setAttribute("data-dividido", "");
                 return gsap.from(divisao.lines, {
-                  yPercent: 110,
+                  yPercent: 135,
                   duration: DURACAO.longa,
                   stagger: ESCALONAMENTO.linhas,
                   ease: CURVA.entrada,

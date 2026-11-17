@@ -112,12 +112,38 @@ def recortar_barras_pretas(img: Image.Image) -> Image.Image:
     return img.crop((0, topo + 2, img.width, base - 1))
 
 
+def apagar_logo_do_notebook(img: Image.Image) -> Image.Image:
+    """foto-05: preenche o logotipo da Apple na tampa do notebook com a cor da
+    própria tampa, interpolada linha a linha entre as bordas da área, e funde
+    com borda suave. Só o objeto é tocado; rosto e corpo ficam intactos
+    (PRD, seções 7 e 10: sem retoque da advogada e sem exibição de marcas)."""
+    x0, y0, x1, y1 = 640, 740, 745, 842  # área do logotipo, com folga
+    arr = np.asarray(img).astype(np.float32)
+    area = arr[y0:y1, x0:x1].copy()
+    esquerda, direita = arr[y0:y1, x0 - 6:x0].mean(axis=1), arr[y0:y1, x1:x1 + 6].mean(axis=1)
+    t = np.linspace(0, 1, x1 - x0)[None, :, None]
+    preenchido = esquerda[:, None, :] * (1 - t) + direita[:, None, :] * t
+    # textura leve, para a área não ficar lisa demais ao lado do grão da foto
+    rng = np.random.default_rng(5)
+    preenchido += rng.normal(0, 0.8, preenchido.shape)
+    # máscara elíptica com borda suave
+    yy, xx = np.mgrid[0:y1 - y0, 0:x1 - x0]
+    cy, cx, ry, rx = (y1 - y0) / 2, (x1 - x0) / 2, (y1 - y0) / 2, (x1 - x0) / 2
+    d = np.sqrt(((yy - cy) / ry) ** 2 + ((xx - cx) / rx) ** 2)
+    alfa = np.clip((1.0 - d) / 0.45, 0, 1)[..., None]
+    arr[y0:y1, x0:x1] = area * (1 - alfa) + preenchido * alfa
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGB")
+
+
 def preparar_fotos():
     FOTOS_SAIDA.mkdir(parents=True, exist_ok=True)
     for origem in sorted((ORIGEM / "fotos").glob("foto-*.jpeg")):
         img = Image.open(origem).convert("RGB")
         if origem.stem == "foto-06":
             img = recortar_barras_pretas(img)
+            img.save(FOTOS_SAIDA / f"{origem.stem}.jpg", quality=92)
+        elif origem.stem == "foto-05":
+            img = apagar_logo_do_notebook(img)
             img.save(FOTOS_SAIDA / f"{origem.stem}.jpg", quality=92)
         elif origem.stem == "foto-08":
             # Corta a faixa esquerda, onde aparece a placa com a logomarca antiga.

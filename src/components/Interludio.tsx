@@ -9,22 +9,25 @@ import { InterludioCena } from "./movimento/InterludioCena";
 /** A única seção de fundo grafite da página inicial, além do rodapé. */
 export const Interludio = () => (
   <section aria-label="Compromisso do escritório" className="bg-grafite">
-    <InterludioCena className="relative isolate flex min-h-svh items-center overflow-hidden">
-      {/* Foto sob véu grafite: textura no celular, retrato em penumbra no computador. */}
-      <div className="absolute inset-y-0 right-0 -z-10 w-full lg:w-[46%]">
+    <InterludioCena className="relative isolate flex min-h-svh items-start overflow-hidden lg:items-center">
+      {/* Foto da Dra. com véu grafite só na metade junto ao texto: no celular,
+          ela ocupa a parte de baixo da seção e o véu funde o topo; no
+          computador, ocupa a metade direita e o véu cobre a metade esquerda. */}
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-[58%] lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-1/2">
         <Image
           src={fotos.interludio.src}
           alt={fotos.interludio.alt}
           fill
-          sizes="(min-width: 1024px) 46vw, 100vw"
-          className="object-cover object-top opacity-20 lg:opacity-55"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover object-[60%_18%] opacity-85 lg:object-[50%_25%]"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-grafite/10 via-grafite/90 via-45% to-grafite" />
-        <div className="absolute inset-0 hidden bg-linear-to-r from-grafite via-grafite/50 to-transparent lg:block" />
+        <div className="absolute inset-0 bg-linear-to-b from-grafite to-transparent to-40% lg:hidden" />
+        <div className="absolute inset-0 hidden bg-linear-to-r from-grafite to-transparent to-55% lg:block" />
+        <div className="absolute inset-x-0 bottom-0 h-1/4 bg-linear-to-t from-grafite/70 to-transparent" />
       </div>
 
-      <div className="container-site grid py-28 lg:grid-cols-12 lg:gap-8">
-        <div className="text-center lg:col-span-8 lg:text-left">
+      <div className="container-site grid pt-24 pb-28 lg:grid-cols-12 lg:gap-8 lg:py-28">
+        <div className="text-center lg:col-span-6 lg:text-left">
           <div
             data-interludio="logo"
             data-oculto

@@ -61,10 +61,11 @@ export const InterludioCena = ({ children, className }: InterludioCenaProps) => 
               const divisao = SplitText.create(frase, {
                 type: "lines",
                 mask: "lines",
+                linesClass: "linha",
               });
               gsap.set(frase, { opacity: 1 });
               gsap.from(divisao.lines, {
-                yPercent: 110,
+                yPercent: 135,
                 duration: DURACAO.longa,
                 stagger: ESCALONAMENTO.linhas,
                 ease: CURVA.entrada,
