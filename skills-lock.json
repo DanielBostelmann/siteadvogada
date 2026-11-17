@@ -689,6 +689,14 @@
       "computedHash": "a9b960c499f38d1fdff62d82c705cc9e0fb4558cbe56cc600e534f851e300577",
       "installMode": "copy"
     },
+    "web-design-reviewer": {
+      "source": "github/awesome-copilot",
+      "commit": "a06ba06d11f41b996f8c246e2a452e1bf3a17950",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-reviewer/SKILL.md",
+      "computedHash": "73ae10d780502c1e9269ca461622362839a855fcd4ec0d3091fed4b506110b3b",
+      "installMode": "copy"
+    },
     "whiteboard-animation": {
       "source": "iart-ai/explainer-video-skills",
       "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
