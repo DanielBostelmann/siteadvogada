@@ -313,6 +313,14 @@
       "computedHash": "d5000e85e70990dc597105ee5a6476fae0bd34b208d3b22d61ee6cc3a0cfb9cb",
       "installMode": "copy"
     },
+    "impeccable": {
+      "source": "pbakaus/impeccable",
+      "commit": "d41d9860b0094dcb68030657da63461212835aaa",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/impeccable/SKILL.md",
+      "computedHash": "077889e9782761360c17acbc2522af320d0dd0f928b09cd90884fa304f443a34",
+      "installMode": "copy"
+    },
     "isometric-animation": {
       "source": "iart-ai/explainer-video-skills",
       "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
