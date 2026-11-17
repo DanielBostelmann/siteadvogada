@@ -291,6 +291,14 @@ html[data-abertura="tocar"] [data-entrada="zoom"] {
   margin-block: -0.22em;
 }
 
+/* Em blocos comuns, as margens negativas de linhas vizinhas se fundem (só
+   metade da compensação vale) e a entrelinha aumenta. Em coluna flexível as
+   margens não se fundem: a entrelinha fica exatamente a do texto original. */
+:is(h1, h2, p):has(> .linha-mask) {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Abertura: tela off-white com o monograma, uma vez por sessão. */
 .abertura {
   display: none;
