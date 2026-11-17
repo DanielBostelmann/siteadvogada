@@ -137,6 +137,14 @@
       "computedHash": "6f86ced042fc602fbd6f873706f6b3860871551f33b0ff76b09cb9f779d7869f",
       "installMode": "copy"
     },
+    "particle-system": {
+      "source": "iart-ai/webgl-animation-skills",
+      "commit": "0041933813688c357804f7b13dcb85095c5a3210",
+      "sourceType": "github",
+      "skillPath": "skills/particle-system/SKILL.md",
+      "computedHash": "e901340854fb896307236638e7333ac23c21483c6cdf79613daec658169f64b7",
+      "installMode": "copy"
+    },
     "remotion-best-practices": {
       "source": "remotion-dev/skills",
       "commit": "3e20ac75161bc34468845df714701cc9bf6075f4",
@@ -265,6 +273,14 @@
       "computedHash": "313906594cddf8d38d2d5cd3eda0436d7f4c912808d5255e1d579fcb8b8befaf",
       "installMode": "copy"
     },
+    "shader-glsl": {
+      "source": "iart-ai/webgl-animation-skills",
+      "commit": "0041933813688c357804f7b13dcb85095c5a3210",
+      "sourceType": "github",
+      "skillPath": "skills/shader-glsl/SKILL.md",
+      "computedHash": "916275255903d5b259a36ef5d71ba010629e37d61325c0cc52b8e2d462c9ef92",
+      "installMode": "copy"
+    },
     "slideshow": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
@@ -279,6 +295,14 @@
       "sourceType": "github",
       "skillPath": "skills/style-sampling/SKILL.md",
       "computedHash": "621ca6c3126f0c499fcb7e12c976230c86aa60a985bf18e77f9ce277678b2bb3",
+      "installMode": "copy"
+    },
+    "threejs-animation": {
+      "source": "iart-ai/webgl-animation-skills",
+      "commit": "0041933813688c357804f7b13dcb85095c5a3210",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-animation/SKILL.md",
+      "computedHash": "0ba8eea2da421691a047a1a3e4b4d328f513e5a7685edd3da7674b69895afc78",
       "installMode": "copy"
     }
   }
