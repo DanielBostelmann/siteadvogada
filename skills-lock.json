@@ -105,6 +105,14 @@
       "computedHash": "68c90542d8e4df21600949ef61da72fb7ab0c8c22cde3bfdc250e92fcc1d3696",
       "installMode": "copy"
     },
+    "img2threejs": {
+      "source": "img2threejs/img2threejs",
+      "commit": "0c0c49bc168e648dbaf9c8c080474de0b3a941b6",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "d5000e85e70990dc597105ee5a6476fae0bd34b208d3b22d61ee6cc3a0cfb9cb",
+      "installMode": "copy"
+    },
     "media-use": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
