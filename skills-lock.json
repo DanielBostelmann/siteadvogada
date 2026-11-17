@@ -9,6 +9,14 @@
       "computedHash": "c0fa96dcd20130cbb865024a5b2ebaed0330dddd4dd2b9891e3cc3fd63b861f2",
       "installMode": "copy"
     },
+    "gbro-collage-broll": {
+      "source": "pyang5166/gbro-collage-broll",
+      "commit": "a1a4ee2e2abf7d44e460026b706d0c72c2cf8a91",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "e84b2bd2114653df1880d72c7b8780aca521e2c7b42a3c3b34122ef06be568c0",
+      "installMode": "copy"
+    },
     "hyperframes": {
       "source": "heygen-com/hyperframes",
       "commit": "38aaad1b2061aa565a0609d2faad837f978130d1",
