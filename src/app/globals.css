@@ -359,3 +359,72 @@ html[data-abertura="tocar"] .abertura-monograma {
     transform: scale(1.04);
   }
 }
+
+/* Prévia de paletas (temporária). O seletor no canto da tela troca o atributo
+   data-paleta do <html>; aqui cada paleta redefine os seis tokens de cor, sem
+   mexer em layout. Remover antes do lançamento, junto com SeletorPaleta. */
+
+/* A. Prata: claro e frio, da referência 1. O dourado-texto escurece um pouco
+   para manter o contraste AA sobre o fundo prata. */
+html[data-paleta="prata"] {
+  --color-branco: #f3f2f2;
+  --color-off-white: #e8e7e6;
+  --color-champagne: #d6d4d2;
+  --color-dourado: #c6a15b;
+  --color-dourado-texto: #765a24;
+  --color-grafite: #292929;
+}
+
+/* B. Noite e ouro: escuro, da referência 2. O fundo vira azul-noite e o texto
+   fica claro. Nas seções escuras e no rodapé o fundo desce para um azul mais
+   profundo, e os botões preenchidos viram ouro metálico. */
+html[data-paleta="noite"] {
+  color-scheme: dark;
+  --color-branco: #0b1424;
+  --color-off-white: #121d31;
+  --color-champagne: #1d2a42;
+  --color-dourado: #c6a15b;
+  --color-dourado-texto: #d9bc8a;
+  --color-grafite: #e6e3dc;
+}
+html[data-paleta="noite"] :is(section, footer).bg-grafite {
+  --color-grafite: #060c18;
+  --color-off-white: #f1ece3;
+}
+html[data-paleta="noite"] :is(a, button).bg-grafite {
+  background-image: linear-gradient(100deg, #a37b4a 0%, #d9bc8a 48%, #b2966e 100%);
+  color: var(--color-branco);
+}
+
+/* C. Grafite e ouro: seções do meio em prata, cabeçalho e topo em grafite.
+   No topo, o botão preenchido vira contorno dourado e se preenche no hover. */
+html[data-paleta="grafite"] {
+  --color-branco: #ecebea;
+  --color-off-white: #e2e0de;
+  --color-champagne: #d6d4d2;
+  --color-dourado: #c6a15b;
+  --color-dourado-texto: #765a24;
+  --color-grafite: #292929;
+}
+html[data-paleta="grafite"] :is(#inicio, header.fixed) {
+  --color-branco: #292929;
+  --color-off-white: #313132;
+  --color-champagne: #3a3a3b;
+  --color-dourado-texto: #d9bc8a;
+  --color-grafite: #f0eeea;
+  /* O texto sem classe de cor herda a cor já calculada no <body>: é preciso
+     declarar de novo para ela seguir os tokens desta área. */
+  color: var(--color-grafite);
+}
+html[data-paleta="grafite"] header.fixed > span:first-child {
+  opacity: 1;
+}
+html[data-paleta="grafite"] #inicio a.bg-grafite {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px var(--color-dourado);
+  color: var(--color-dourado-texto);
+}
+html[data-paleta="grafite"] #inicio a.bg-grafite:hover {
+  background-color: var(--color-dourado);
+  color: var(--color-branco);
+}

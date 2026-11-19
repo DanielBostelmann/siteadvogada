@@ -5,6 +5,7 @@ import { Cabecalho } from "@/components/Cabecalho";
 import { MovimentoGlobal } from "@/components/movimento/MovimentoGlobal";
 import { ScriptMovimento } from "@/components/movimento/ScriptMovimento";
 import { Rodape } from "@/components/Rodape";
+import { SeletorPaleta } from "@/components/SeletorPaleta";
 import { WhatsAppFlutuante } from "@/components/WhatsAppFlutuante";
 import { site } from "@/config/site";
 import { metadadosDaPagina } from "@/lib/seo";
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Rodape />
         <WhatsAppFlutuante />
+        <SeletorPaleta />
         <MovimentoGlobal />
       </body>
     </html>
