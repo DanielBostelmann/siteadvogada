@@ -163,6 +163,10 @@ export const FormularioContato = () => {
       noValidate
       aria-label="Formulário de contato"
       data-revelar-grupo
+      // Ao voltar de "Editar a mensagem", o formulário é montado de novo
+      // depois que a revelação ao rolar já aconteceu: nasce revelado, senão o
+      // estado inicial do CSS o deixaria invisível.
+      data-revelado={valores ? "" : undefined}
       className="rounded-moldura bg-branco p-6 shadow-(--sombra-cartao) sm:p-10"
     >
       <div className="grid gap-7 sm:grid-cols-2">
