@@ -7,7 +7,7 @@ import {
   OPCOES_DE_AREA,
 } from "./contato-campos";
 
-// O mesmo esquema valida no navegador e no servidor.
+// Valida o formulário no navegador, antes de montar a mensagem do WhatsApp.
 export const contatoSchema = z.object({
   nome: z
     .string()

@@ -83,7 +83,7 @@ Monograma **MM** dourado metálico, com balança e espada integradas, sobre o no
 - **Estilo:** Tailwind CSS com os tokens da seção 3 como variáveis de tema; nenhum valor de cor solto no código.
 - **Movimento:** GSAP + ScrollTrigger via `useGSAP`, e Lenis para rolagem suave. Sem outras bibliotecas de animação.
 - **Imagens:** `next/image`, AVIF/WebP, `priority` apenas na foto do hero.
-- **Formulário:** Server Action com validação Zod e envio por Resend.
+- **Formulário:** validação Zod no navegador; a mensagem é montada e aberta no WhatsApp (sem servidor de e-mail).
 - **Hospedagem:** Vercel.
 - **Conteúdo:** todos os textos e listas em `src/content/` (um arquivo por área); dados de contato em `src/config/site.ts`.
 
@@ -331,10 +331,11 @@ Ritmo e luz: entradas lentas, cortes por máscara e profundidade na rolagem. Nad
 
 - Campos: nome (obrigatório), e-mail (obrigatório), telefone/WhatsApp, área de interesse (as seis áreas e "Outro assunto"), mensagem (obrigatória, até 2.000 caracteres).
 - Caixa de consentimento obrigatória: "Li e concordo com a Política de Privacidade e autorizo o uso dos meus dados para retorno deste contato."
-- Aviso sob a mensagem: "Não envie documentos nem dados sensíveis por este formulário. O envio não estabelece relação entre advogada e cliente."
-- Validação no cliente e no servidor, campo-isca contra robôs e limite de envios por IP.
-- Estados: enviando, sucesso ("Mensagem recebida. Retornaremos pelo contato informado.") e erro com alternativa de WhatsApp e e-mail.
-- Destino: e-mail da advogada, com `reply-to` do remetente. Sem banco de dados. Chave do Resend em variável de ambiente `RESEND_API_KEY`; sem a chave, o formulário mostra o estado de erro com as alternativas, sem quebrar.
+- Aviso sob a mensagem: "Ao enviar, a mensagem com os seus dados abre no WhatsApp para você conferir e confirmar o envio. Não envie documentos nem dados sensíveis por este formulário. O envio não estabelece relação entre advogada e cliente."
+- Validação no navegador. Botão "Enviar pelo WhatsApp".
+- Destino: WhatsApp do escritório. O formulário monta uma mensagem organizada (saudação, um campo por linha com o rótulo em negrito e a mensagem em bloco próprio; campos opcionais em branco ficam de fora) e a abre em `https://wa.me/<número>?text=<mensagem>`. A pessoa confere e confirma o envio no WhatsApp. Sem servidor de e-mail nem banco de dados.
+- Estado depois de abrir: "Sua mensagem foi aberta no WhatsApp.", com botão para abrir de novo e opção de editar a mensagem com os dados preservados.
+- Sem JavaScript, o formulário abre a conversa com o escritório no WhatsApp.
 
 ### E-mail e telefone
 

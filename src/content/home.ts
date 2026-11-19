@@ -64,7 +64,12 @@ export const contato = {
     consentimento:
       "Li e concordo com a Política de Privacidade e autorizo o uso dos meus dados para retorno deste contato.",
     aviso:
-      "Não envie documentos nem dados sensíveis por este formulário. O envio não estabelece relação entre advogada e cliente.",
-    sucesso: "Mensagem recebida. Retornaremos pelo contato informado.",
+      "Ao enviar, a mensagem com os seus dados abre no WhatsApp para você conferir e confirmar o envio. Não envie documentos nem dados sensíveis por este formulário. O envio não estabelece relação entre advogada e cliente.",
+    botao: "Enviar pelo WhatsApp",
+    sucesso: "Sua mensagem foi aberta no WhatsApp.",
+    sucessoTexto:
+      "Confira os dados e toque em enviar para concluir. Se o WhatsApp não abriu, use o botão abaixo.",
+    abrirDeNovo: "Abrir o WhatsApp",
+    editar: "Editar a mensagem",
   },
 } as const;

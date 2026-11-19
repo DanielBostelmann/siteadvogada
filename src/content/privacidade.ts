@@ -6,7 +6,7 @@ export const privacidade = {
   titulo: "Política de Privacidade",
   atualizacao: "Última atualização: novembro de 2026.",
   introducao:
-    "Esta política explica como são tratados os dados pessoais enviados pelo formulário de contato deste site, conforme a Lei nº 13.709/2018, a Lei Geral de Proteção de Dados Pessoais (LGPD).",
+    "Esta política explica como são tratados os dados pessoais informados no formulário de contato deste site, conforme a Lei nº 13.709/2018, a Lei Geral de Proteção de Dados Pessoais (LGPD).",
   secoes: [
     {
       titulo: "Controladora dos dados",
@@ -17,7 +17,7 @@ export const privacidade = {
     {
       titulo: "Dados coletados",
       paragrafos: [
-        "O site coleta apenas os dados que você informa no formulário de contato:",
+        "O formulário de contato não envia nem guarda dados no site. Ele apenas monta uma mensagem com as informações abaixo, que abre no WhatsApp para você conferir e confirmar o envio ao escritório:",
       ],
       itens: [
         "nome;",
@@ -27,7 +27,6 @@ export const privacidade = {
         "o texto da mensagem.",
       ],
       paragrafosFinais: [
-        "Para evitar envios automatizados, o endereço IP de quem envia o formulário é usado de forma temporária para limitar envios repetidos e não é guardado.",
         "O site não usa cookies de rastreamento nem ferramentas de publicidade.",
       ],
     },
@@ -40,19 +39,19 @@ export const privacidade = {
     {
       titulo: "Base legal",
       paragrafos: [
-        "O tratamento se baseia no seu consentimento (art. 7º, I, da LGPD), manifestado ao marcar a caixa de concordância do formulário. O consentimento pode ser revogado a qualquer momento pelo canal indicado ao final desta política.",
+        "O tratamento se baseia no seu consentimento (art. 7º, I, da LGPD), manifestado ao marcar a caixa de concordância do formulário e ao confirmar o envio da mensagem no WhatsApp. O consentimento pode ser revogado a qualquer momento pelo canal indicado ao final desta política.",
       ],
     },
     {
       titulo: "Prazo de guarda",
       paragrafos: [
-        "As mensagens são mantidas pelo tempo necessário ao atendimento do contato e, depois disso, por até 12 meses, salvo quando a lei exigir prazo diferente ou quando houver contratação dos serviços.",
+        "As mensagens recebidas pelo WhatsApp são mantidas pelo tempo necessário ao atendimento do contato e, depois disso, por até 12 meses, salvo quando a lei exigir prazo diferente ou quando houver contratação dos serviços.",
       ],
     },
     {
       titulo: "Compartilhamento",
       paragrafos: [
-        "Os dados são compartilhados somente com os provedores de hospedagem do site e de envio e recebimento de e-mail, que atuam em nome do escritório. Esses provedores podem processar os dados em servidores localizados fora do Brasil.",
+        "A mensagem é enviada por você pelo WhatsApp, serviço da WhatsApp LLC (grupo Meta), que tem política de privacidade própria e pode processar os dados em servidores localizados fora do Brasil.",
         "Os dados não são vendidos nem cedidos a terceiros para outras finalidades.",
       ],
     },

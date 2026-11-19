@@ -23,9 +23,3 @@ export type ValoresContato = Record<
   Exclude<CampoContato, "consentimento">,
   string
 >;
-
-export type EstadoContato =
-  | { status: "inicial" }
-  | { status: "sucesso" }
-  | { status: "invalido"; erros: ErrosContato; valores: ValoresContato }
-  | { status: "erro"; valores: ValoresContato };

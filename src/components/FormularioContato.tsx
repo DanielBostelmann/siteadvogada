@@ -1,29 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { startTransition, useActionState, useState } from "react";
+import { useState } from "react";
 
-import { enviarContato } from "@/app/acoes/contato";
 import { site } from "@/config/site";
 import { contato } from "@/content/home";
 import {
   type CampoContato,
   type ErrosContato,
-  type EstadoContato,
   LIMITE_MENSAGEM,
   OPCOES_DE_AREA,
+  type ValoresContato,
 } from "@/lib/contato-campos";
-import { linkWhatsApp } from "@/lib/whatsapp";
+import { linkDoFormulario } from "@/lib/whatsapp";
 
-const ESTADO_INICIAL: EstadoContato = { status: "inicial" };
+import { IconeWhatsApp } from "./Icones";
 
 // O campo é o "peer" do filete de foco logo depois dele (ver ComFilete).
 const CAMPO =
   "peer block w-full border-0 border-b border-grafite/30 bg-transparent px-0 py-3 text-base text-grafite focus:outline-none aria-[invalid=true]:border-grafite";
+// Caixa de seleção sem a aparência nativa (moldura e seta do sistema): fica
+// só com o sublinhado dos outros campos e uma seta dourada própria. Enquanto
+// "Selecione" está escolhido, o texto fica mais claro, como um marcador.
+const SELECAO = `${CAMPO} cursor-pointer appearance-none rounded-none pr-9 has-[option[value='']:checked]:text-grafite/75 [&>option]:text-grafite`;
 // Filete dourado que cresce do centro sobre o sublinhado quando o campo
 // recebe foco. Com movimento reduzido, aparece de uma vez.
 const FILETE_FOCO =
   "pointer-events-none absolute inset-x-0 bottom-0 h-0.5 scale-x-0 bg-dourado-texto peer-focus:scale-x-100 motion-safe:transition-transform motion-safe:duration-(--dur-estado) motion-safe:ease-(--ease-saida)";
+const ROTULO_CAMPO = "text-sm font-medium text-grafite";
+const LINK = "border-b border-dourado text-grafite";
+const BOTAO =
+  "botao-pressionavel botao-elevado inline-flex min-h-12 items-center justify-center gap-3 rounded-moldura bg-grafite pr-8 pl-[1.875rem] text-sm font-medium tracking-wide text-branco hover:bg-grafite/90";
 
 const ComFilete = ({ children }: { children: React.ReactNode }) => (
   <span className="relative mt-2 block">
@@ -31,8 +38,6 @@ const ComFilete = ({ children }: { children: React.ReactNode }) => (
     <span aria-hidden="true" className={FILETE_FOCO} />
   </span>
 );
-const ROTULO_CAMPO = "text-sm font-medium text-grafite";
-const LINK = "border-b border-dourado text-grafite";
 
 type ErroDoCampoProps = { campo: CampoContato; erros: ErrosContato };
 
@@ -46,37 +51,63 @@ const ErroDoCampo = ({ campo, erros }: ErroDoCampoProps) =>
     </span>
   ) : null;
 
+// O validador (Zod) só é baixado quando a pessoa começa a preencher: ao
+// enviar, ele já está pronto e o WhatsApp abre no mesmo clique.
+const carregarValidador = () => import("@/lib/contato");
+
+/** Abre o WhatsApp numa nova aba; se o navegador bloquear, abre nesta. */
+const abrirWhatsApp = (link: string) => {
+  const janela = window.open(link, "_blank");
+  if (janela) janela.opener = null;
+  else window.location.assign(link);
+};
+
+type Envio = { link: string; valores: ValoresContato };
+
+/**
+ * Formulário de contato. Em vez de enviar e-mail, monta uma mensagem
+ * organizada com todos os dados e a abre no WhatsApp do escritório, onde a
+ * pessoa confere e confirma o envio. Sem JavaScript, o formulário abre a
+ * conversa com o escritório no WhatsApp.
+ */
 export const FormularioContato = () => {
-  const [estado, enviar, enviando] = useActionState(
-    enviarContato,
-    ESTADO_INICIAL,
-  );
-  const [errosNoNavegador, setErrosNoNavegador] = useState<ErrosContato | null>(
-    null,
-  );
+  const [erros, setErros] = useState<ErrosContato>({});
+  const [envio, setEnvio] = useState<Envio | null>(null);
+  const [valores, setValores] = useState<ValoresContato | null>(null);
 
-  const erros: ErrosContato =
-    errosNoNavegador ?? (estado.status === "invalido" ? estado.erros : {});
-  const valores = "valores" in estado ? estado.valores : null;
-
-  // Valida no navegador antes de enviar. O validador (Zod) é baixado só
-  // neste momento; sem JavaScript, o formulário segue direto para o servidor,
-  // que valida de novo.
-  const validarEEnviar = async (evento: React.FormEvent<HTMLFormElement>) => {
+  const validarEAbrir = async (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
     const formulario = evento.currentTarget;
-    const dados = new FormData(formulario);
 
-    const { lerFormulario, validarContato } = await import("@/lib/contato");
-    const { erros: encontrados } = validarContato(lerFormulario(dados));
-    setErrosNoNavegador(encontrados);
+    const { lerFormulario, validarContato } = await carregarValidador();
+    const { dados, erros: encontrados } = validarContato(
+      lerFormulario(new FormData(formulario)),
+    );
 
-    if (encontrados) {
+    if (!dados) {
+      setErros(encontrados);
       const primeiro = Object.keys(encontrados)[0];
       formulario.querySelector<HTMLElement>(`[name="${primeiro}"]`)?.focus();
       return;
     }
-    startTransition(() => enviar(dados));
+
+    const preenchidos: ValoresContato = {
+      nome: dados.nome,
+      email: dados.email,
+      telefone: dados.telefone,
+      area: dados.area,
+      mensagem: dados.mensagem,
+    };
+    const link = linkDoFormulario(preenchidos);
+    abrirWhatsApp(link);
+    setErros({});
+    setEnvio({ link, valores: preenchidos });
+  };
+
+  // Volta ao formulário com os dados já preenchidos.
+  const editar = () => {
+    if (envio) setValores(envio.valores);
+    setEnvio(null);
   };
 
   const atributosDeErro = (campo: CampoContato) => ({
@@ -84,7 +115,7 @@ export const FormularioContato = () => {
     "aria-describedby": erros[campo] ? `erro-${campo}` : undefined,
   });
 
-  if (estado.status === "sucesso") {
+  if (envio) {
     return (
       <div
         id="formulario"
@@ -95,6 +126,27 @@ export const FormularioContato = () => {
         <p className="mt-8 font-serif text-3xl leading-tight">
           {contato.formulario.sucesso}
         </p>
+        <p className="mt-4 max-w-md text-base leading-relaxed text-grafite/75">
+          {contato.formulario.sucessoTexto}
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a
+            href={envio.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={BOTAO}
+          >
+            <IconeWhatsApp className="size-[1.125rem] shrink-0" />
+            {contato.formulario.abrirDeNovo}
+          </a>
+          <button
+            type="button"
+            onClick={editar}
+            className="link-dourado inline-flex min-h-11 items-center text-sm font-medium tracking-wide text-grafite"
+          >
+            {contato.formulario.editar}
+          </button>
+        </div>
       </div>
     );
   }
@@ -102,35 +154,17 @@ export const FormularioContato = () => {
   return (
     <form
       id="formulario"
-      action={enviar}
-      onSubmit={validarEEnviar}
+      // Sem JavaScript: abre a conversa com o escritório no WhatsApp.
+      action={`https://wa.me/${site.telefone.whatsapp}`}
+      method="get"
+      target="_blank"
+      onSubmit={validarEAbrir}
+      onFocusCapture={() => void carregarValidador()}
       noValidate
       aria-label="Formulário de contato"
       data-revelar-grupo
       className="rounded-moldura bg-branco p-6 shadow-(--sombra-cartao) sm:p-10"
     >
-      {estado.status === "erro" ? (
-        <p
-          role="alert"
-          className="entrada-estado mb-8 border-l border-dourado py-1 pl-5 text-base leading-relaxed text-grafite"
-        >
-          Não foi possível enviar a mensagem agora. Fale com o escritório pelo{" "}
-          <a
-            href={linkWhatsApp()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={LINK}
-          >
-            WhatsApp
-          </a>{" "}
-          ou pelo e-mail{" "}
-          <a href={`mailto:${site.email}`} className={`${LINK} break-all`}>
-            {site.email}
-          </a>
-          .
-        </p>
-      ) : null}
-
       <div className="grid gap-7 sm:grid-cols-2">
         <label className="block sm:col-span-2">
           <span className={ROTULO_CAMPO}>Nome *</span>
@@ -183,7 +217,7 @@ export const FormularioContato = () => {
             <select
               name="area"
               defaultValue={valores?.area ?? ""}
-              className={CAMPO}
+              className={SELECAO}
               {...atributosDeErro("area")}
             >
               <option value="">Selecione</option>
@@ -193,6 +227,18 @@ export const FormularioContato = () => {
                 </option>
               ))}
             </select>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="pointer-events-none absolute top-1/2 right-1 size-4 -translate-y-1/2 text-dourado-texto"
+            >
+              <path d="M4 6l4 4 4-4" />
+            </svg>
           </ComFilete>
           <ErroDoCampo campo="area" erros={erros} />
         </label>
@@ -225,20 +271,13 @@ export const FormularioContato = () => {
         {contato.formulario.aviso}
       </p>
 
-      {/* Campo-isca contra robôs: fora da tela, do teclado e dos leitores de tela. */}
-      <div aria-hidden="true" className="absolute -left-[200vw] size-px overflow-hidden">
-        <label>
-          Site
-          <input type="text" name="site" tabIndex={-1} autoComplete="off" />
-        </label>
-      </div>
-
       <div className="mt-7">
         <label className="flex items-start gap-3">
           <input
             type="checkbox"
             name="consentimento"
             required
+            defaultChecked={Boolean(valores)}
             className="mt-1 size-5 shrink-0 accent-dourado-texto"
             {...atributosDeErro("consentimento")}
           />
@@ -253,23 +292,9 @@ export const FormularioContato = () => {
         <ErroDoCampo campo="consentimento" erros={erros} />
       </div>
 
-      <button
-        type="submit"
-        disabled={enviando}
-        className="botao-pressionavel botao-elevado mt-9 inline-flex min-h-12 w-full items-center justify-center overflow-hidden rounded-moldura bg-grafite px-8 text-sm font-medium tracking-wide text-branco hover:bg-grafite/90 disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
-      >
-        {/* Os dois rótulos ocupam a mesma célula: a largura do botão não muda
-            quando o texto troca para "Enviando…". */}
-        <span className="grid">
-          <span className={`col-start-1 row-start-1 ${enviando ? "invisible" : ""}`}>
-            Enviar mensagem
-          </span>
-          <span className={`col-start-1 row-start-1 ${enviando ? "" : "invisible"}`}>
-            Enviando…
-          </span>
-        </span>
-        {/* Enquanto envia, um filete percorre a base do botão. */}
-        {enviando ? <span aria-hidden="true" className="filete-carregando" /> : null}
+      <button type="submit" className={`${BOTAO} mt-9 w-full sm:w-auto`}>
+        <IconeWhatsApp className="size-[1.125rem] shrink-0" />
+        {contato.formulario.botao}
       </button>
     </form>
   );
