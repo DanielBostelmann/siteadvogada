@@ -7,7 +7,13 @@ import { useEffect } from "react";
 
 import "lenis/dist/lenis.css";
 
-import { aoEntrar, desenharMoldura, revelar } from "@/lib/efeitos";
+import {
+  aoEntrar,
+  brilharUmaVez,
+  desenharMoldura,
+  revelar,
+  revelarPorMascara,
+} from "@/lib/efeitos";
 import { carregarExtrasDeMovimento, comExtras } from "@/lib/extras-de-movimento";
 import {
   ABERTURA,
@@ -16,6 +22,7 @@ import {
   DURACAO,
   ESCALONAMENTO,
   LINHA_DE_ENTRADA,
+  PROFUNDIDADE,
 } from "@/lib/movimento";
 
 gsap.registerPlugin(useGSAP);
@@ -113,11 +120,42 @@ export const MovimentoGlobal = () => {
             todos("[data-revelar-grupo]"),
             LINHA_DE_ENTRADA.padrao,
             seguro((grupo: Element) => {
+              // Ao terminar, devolve opacidade e posição ao CSS, para os
+              // efeitos de hover dos itens (como os da galeria) voltarem a valer.
               revelar(grupo.children, {
                 duration: DURACAO.curta,
                 stagger: ESCALONAMENTO.itens,
+                clearProps: "opacity,transform",
               });
+              // Galeria: as fotos também se aproximam de 1,05 para 1.
+              if (grupo.classList.contains("galeria")) {
+                gsap.fromTo(
+                  grupo.querySelectorAll("img"),
+                  { scale: 1.05 },
+                  {
+                    scale: 1,
+                    duration: DURACAO.longa,
+                    ease: CURVA.entrada,
+                    stagger: ESCALONAMENTO.itens,
+                    clearProps: "transform",
+                  },
+                );
+              }
               grupo.setAttribute("data-revelado", "");
+            }),
+          ),
+          aoEntrar(
+            todos("[data-revelar-mascara]"),
+            LINHA_DE_ENTRADA.padrao,
+            seguro((bloco: Element) => {
+              revelarPorMascara(bloco);
+            }),
+          ),
+          aoEntrar(
+            todos("[data-brilho]"),
+            LINHA_DE_ENTRADA.padrao,
+            seguro((elemento: Element) => {
+              brilharUmaVez(elemento);
             }),
           ),
           aoEntrar(
@@ -138,6 +176,25 @@ export const MovimentoGlobal = () => {
               );
             }),
           ),
+          // Divisórias verticais: desenham-se de cima para baixo logo depois
+          // dos filetes horizontais da mesma faixa.
+          aoEntrar(
+            todos("[data-filete-vertical]"),
+            LINHA_DE_ENTRADA.padrao,
+            seguro((filete: Element) => {
+              const ordem = Number(filete.getAttribute("data-filete-vertical")) || 0;
+              gsap.fromTo(
+                filete,
+                { opacity: 1, scaleY: 0 },
+                {
+                  scaleY: 1,
+                  duration: DURACAO.curta,
+                  ease: CURVA.mascara,
+                  delay: DURACAO.curta + ordem * ESCALONAMENTO.traco,
+                },
+              );
+            }),
+          ),
         ];
         return () => parar.forEach((desligar) => desligar());
       });
@@ -154,6 +211,43 @@ export const MovimentoGlobal = () => {
                   ease: "none",
                   scrollTrigger: {
                     trigger: bloco,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                  },
+                },
+              );
+            }
+            // Camada no sentido oposto, para separar planos (bloco champagne
+            // atrás da foto do escritório).
+            for (const camada of todos("[data-paralaxe-oposta]")) {
+              gsap.fromTo(
+                camada,
+                { yPercent: -PROFUNDIDADE.blocoPercentual },
+                {
+                  yPercent: PROFUNDIDADE.blocoPercentual,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: camada,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                  },
+                },
+              );
+            }
+            // Foto que corre devagar dentro da própria moldura; a escala cobre
+            // as bordas durante o deslocamento.
+            for (const moldura of todos("[data-paralaxe-imagem]")) {
+              gsap.fromTo(
+                moldura.querySelector("img"),
+                { yPercent: -PROFUNDIDADE.imagemPercentual, scale: 1.1 },
+                {
+                  yPercent: PROFUNDIDADE.imagemPercentual,
+                  scale: 1.1,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: moldura,
                     start: "top bottom",
                     end: "bottom top",
                     scrub: true,

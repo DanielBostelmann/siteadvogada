@@ -8,6 +8,8 @@ type FotoProps = {
   preload?: boolean;
   /** Aproximação lenta na entrada (hero). */
   aproximar?: boolean;
+  /** Revelação por máscara: o elemento pai precisa de data-revelar-mascara. */
+  mascara?: boolean;
   className?: string;
   imagemClassName?: string;
 };
@@ -19,12 +21,11 @@ export const Foto = ({
   sizes,
   preload = false,
   aproximar = false,
+  mascara = false,
   className = "",
   imagemClassName = "object-cover",
-}: FotoProps) => (
-  <div
-    className={`grao relative overflow-hidden rounded-moldura bg-champagne ${className}`}
-  >
+}: FotoProps) => {
+  const imagem = (
     <Image
       src={src}
       alt={alt}
@@ -36,5 +37,19 @@ export const Foto = ({
       placeholder="blur"
       className={imagemClassName}
     />
-  </div>
-);
+  );
+
+  return (
+    <div
+      className={`grao relative overflow-hidden rounded-moldura bg-champagne ${className}`}
+    >
+      {mascara ? (
+        <span data-mascara="janela" className="absolute inset-0 block overflow-hidden">
+          {imagem}
+        </span>
+      ) : (
+        imagem
+      )}
+    </div>
+  );
+};

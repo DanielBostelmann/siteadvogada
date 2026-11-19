@@ -17,8 +17,20 @@ import { linkWhatsApp } from "@/lib/whatsapp";
 
 const ESTADO_INICIAL: EstadoContato = { status: "inicial" };
 
+// O campo é o "peer" do filete de foco logo depois dele (ver ComFilete).
 const CAMPO =
-  "mt-2 block w-full border-0 border-b border-grafite/30 bg-transparent px-0 py-3 text-base text-grafite focus:border-dourado-texto focus:outline-none aria-[invalid=true]:border-grafite";
+  "peer block w-full border-0 border-b border-grafite/30 bg-transparent px-0 py-3 text-base text-grafite focus:outline-none aria-[invalid=true]:border-grafite";
+// Filete dourado que cresce do centro sobre o sublinhado quando o campo
+// recebe foco. Com movimento reduzido, aparece de uma vez.
+const FILETE_FOCO =
+  "pointer-events-none absolute inset-x-0 bottom-0 h-0.5 scale-x-0 bg-dourado-texto peer-focus:scale-x-100 motion-safe:transition-transform motion-safe:duration-(--dur-estado) motion-safe:ease-(--ease-saida)";
+
+const ComFilete = ({ children }: { children: React.ReactNode }) => (
+  <span className="relative mt-2 block">
+    {children}
+    <span aria-hidden="true" className={FILETE_FOCO} />
+  </span>
+);
 const ROTULO_CAMPO = "text-sm font-medium text-grafite";
 const LINK = "border-b border-dourado text-grafite";
 
@@ -26,7 +38,7 @@ type ErroDoCampoProps = { campo: CampoContato; erros: ErrosContato };
 
 const ErroDoCampo = ({ campo, erros }: ErroDoCampoProps) =>
   erros[campo] ? (
-    <span id={`erro-${campo}`} className="mt-2 block text-sm text-grafite">
+    <span id={`erro-${campo}`} className="entrada-estado mt-2 block text-sm text-grafite">
       <span aria-hidden="true" className="mr-2 text-dourado-texto">
         —
       </span>
@@ -77,9 +89,9 @@ export const FormularioContato = () => {
       <div
         id="formulario"
         role="status"
-        className="rounded-moldura border border-grafite/10 bg-branco p-8 sm:p-12"
+        className="entrada-estado rounded-moldura border border-grafite/10 bg-branco p-8 sm:p-12"
       >
-        <span aria-hidden="true" className="block h-px w-12 bg-dourado" />
+        <span aria-hidden="true" className="filete-desenhado block h-px w-12 bg-dourado" />
         <p className="mt-8 font-serif text-3xl leading-tight">
           {contato.formulario.sucesso}
         </p>
@@ -100,7 +112,7 @@ export const FormularioContato = () => {
       {estado.status === "erro" ? (
         <p
           role="alert"
-          className="mb-8 border-l border-dourado py-1 pl-5 text-base leading-relaxed text-grafite"
+          className="entrada-estado mb-8 border-l border-dourado py-1 pl-5 text-base leading-relaxed text-grafite"
         >
           Não foi possível enviar a mensagem agora. Fale com o escritório pelo{" "}
           <a
@@ -122,76 +134,86 @@ export const FormularioContato = () => {
       <div className="grid gap-7 sm:grid-cols-2">
         <label className="block sm:col-span-2">
           <span className={ROTULO_CAMPO}>Nome *</span>
-          <input
-            type="text"
-            name="nome"
-            required
-            autoComplete="name"
-            defaultValue={valores?.nome}
-            className={CAMPO}
-            {...atributosDeErro("nome")}
-          />
+          <ComFilete>
+            <input
+              type="text"
+              name="nome"
+              required
+              autoComplete="name"
+              defaultValue={valores?.nome}
+              className={CAMPO}
+              {...atributosDeErro("nome")}
+            />
+          </ComFilete>
           <ErroDoCampo campo="nome" erros={erros} />
         </label>
         <label className="block">
           <span className={ROTULO_CAMPO}>E-mail *</span>
-          <input
-            type="email"
-            name="email"
-            required
-            autoComplete="email"
-            spellCheck={false}
-            defaultValue={valores?.email}
-            className={CAMPO}
-            {...atributosDeErro("email")}
-          />
+          <ComFilete>
+            <input
+              type="email"
+              name="email"
+              required
+              autoComplete="email"
+              spellCheck={false}
+              defaultValue={valores?.email}
+              className={CAMPO}
+              {...atributosDeErro("email")}
+            />
+          </ComFilete>
           <ErroDoCampo campo="email" erros={erros} />
         </label>
         <label className="block">
           <span className={ROTULO_CAMPO}>Telefone / WhatsApp</span>
-          <input
-            type="tel"
-            name="telefone"
-            autoComplete="tel"
-            defaultValue={valores?.telefone}
-            className={CAMPO}
-            {...atributosDeErro("telefone")}
-          />
+          <ComFilete>
+            <input
+              type="tel"
+              name="telefone"
+              autoComplete="tel"
+              defaultValue={valores?.telefone}
+              className={CAMPO}
+              {...atributosDeErro("telefone")}
+            />
+          </ComFilete>
           <ErroDoCampo campo="telefone" erros={erros} />
         </label>
         <label className="block sm:col-span-2">
           <span className={ROTULO_CAMPO}>Área de interesse</span>
-          <select
-            name="area"
-            defaultValue={valores?.area ?? ""}
-            className={CAMPO}
-            {...atributosDeErro("area")}
-          >
-            <option value="">Selecione</option>
-            {OPCOES_DE_AREA.map((opcao) => (
-              <option key={opcao} value={opcao}>
-                {opcao}
-              </option>
-            ))}
-          </select>
+          <ComFilete>
+            <select
+              name="area"
+              defaultValue={valores?.area ?? ""}
+              className={CAMPO}
+              {...atributosDeErro("area")}
+            >
+              <option value="">Selecione</option>
+              {OPCOES_DE_AREA.map((opcao) => (
+                <option key={opcao} value={opcao}>
+                  {opcao}
+                </option>
+              ))}
+            </select>
+          </ComFilete>
           <ErroDoCampo campo="area" erros={erros} />
         </label>
         <label className="block sm:col-span-2">
           <span className={ROTULO_CAMPO}>Mensagem *</span>
-          <textarea
-            name="mensagem"
-            required
-            rows={5}
-            maxLength={LIMITE_MENSAGEM}
-            defaultValue={valores?.mensagem}
-            className={`${CAMPO} resize-y`}
-            aria-invalid={Boolean(erros.mensagem)}
-            aria-describedby={
-              erros.mensagem
-                ? "erro-mensagem aviso-formulario"
-                : "aviso-formulario"
-            }
-          />
+          <ComFilete>
+            <textarea
+              name="mensagem"
+              required
+              rows={5}
+              maxLength={LIMITE_MENSAGEM}
+              defaultValue={valores?.mensagem}
+              className={`${CAMPO} resize-y`}
+              aria-invalid={Boolean(erros.mensagem)}
+              aria-describedby={
+                erros.mensagem
+                  ? "erro-mensagem aviso-formulario"
+                  : "aviso-formulario"
+              }
+            />
+          </ComFilete>
           <ErroDoCampo campo="mensagem" erros={erros} />
         </label>
       </div>
@@ -234,9 +256,11 @@ export const FormularioContato = () => {
       <button
         type="submit"
         disabled={enviando}
-        className="botao-pressionavel mt-9 inline-flex min-h-12 w-full items-center justify-center rounded-moldura bg-grafite px-8 text-sm font-medium tracking-wide text-branco hover:bg-grafite/90 disabled:opacity-60 sm:w-auto"
+        className="botao-pressionavel botao-elevado mt-9 inline-flex min-h-12 w-full items-center justify-center overflow-hidden rounded-moldura bg-grafite px-8 text-sm font-medium tracking-wide text-branco hover:bg-grafite/90 disabled:opacity-60 sm:w-auto"
       >
         {enviando ? "Enviando…" : "Enviar mensagem"}
+        {/* Enquanto envia, um filete percorre a base do botão. */}
+        {enviando ? <span aria-hidden="true" className="filete-carregando" /> : null}
       </button>
     </form>
   );

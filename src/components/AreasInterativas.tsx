@@ -147,20 +147,28 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
                 onMouseEnter={() => ativar(indice)}
                 onFocus={() => ativar(indice)}
                 data-ativa={estaAtiva}
-                className="group block lg:py-6"
+                className="toque-cartao group relative block lg:py-6"
               >
-                {/* Celular e tablet: cartão com a imagem da área. */}
+                {/* Computador: filete dourado que cresce ao lado do item ativo. */}
                 <span
-                  data-revelar
+                  aria-hidden="true"
+                  className="absolute inset-y-6 -left-4 hidden w-px origin-top scale-y-0 bg-dourado group-data-[ativa=true]:scale-y-100 motion-safe:transition-transform motion-safe:duration-(--dur-estado) motion-safe:ease-(--ease-saida) lg:block"
+                />
+                {/* Celular e tablet: cartão com a imagem da área, revelada
+                    por máscara ao entrar na tela. */}
+                <span
+                  data-revelar-mascara
                   className="grao relative block aspect-[4/3] overflow-hidden rounded-moldura bg-champagne lg:hidden"
                 >
-                  <Image
-                    src={area.imagem.src}
-                    alt={area.imagem.alt}
-                    fill
-                    sizes="(min-width: 1024px) 1px, (min-width: 640px) 45vw, 92vw"
-                    className="object-cover"
-                  />
+                  <span data-mascara="janela" className="absolute inset-0 block overflow-hidden">
+                    <Image
+                      src={area.imagem.src}
+                      alt={area.imagem.alt}
+                      fill
+                      sizes="(min-width: 1024px) 1px, (min-width: 640px) 45vw, 92vw"
+                      className="object-cover"
+                    />
+                  </span>
                 </span>
 
                 <span className="mt-6 flex items-baseline gap-5 lg:mt-0">
@@ -171,8 +179,17 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
                         {area.nome}
                       </h3>
                       {area.selo ? (
-                        <span className="rotulo rounded-moldura border border-dourado px-2.5 py-1 text-xs">
+                        // Um brilho atravessa o selo uma vez, ao entrar na tela.
+                        <span
+                          data-brilho
+                          className="rotulo relative overflow-hidden rounded-moldura border border-dourado px-2.5 py-1 text-xs"
+                        >
                           {area.selo}
+                          <span
+                            aria-hidden="true"
+                            data-brilho-faixa
+                            className="absolute inset-y-0 left-0 w-1/2 -skew-x-12 bg-linear-to-r from-transparent via-dourado/35 to-transparent opacity-0"
+                          />
                         </span>
                       ) : null}
                     </span>
@@ -187,7 +204,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
 
                     <span className="link-dourado mt-5 inline-flex items-center gap-2 pb-1 text-sm font-medium text-grafite lg:hidden">
                       {secaoAreas.verServicos}
-                      <IconeSeta className="size-4" />
+                      <IconeSeta className="size-4 motion-safe:transition-transform motion-safe:duration-(--dur-rapida) group-hover:translate-x-[3px]" />
                     </span>
                   </span>
                 </span>
@@ -206,7 +223,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
             href={`/areas/${areaAtiva.slug}`}
             tabIndex={-1}
             data-area="painel"
-            className="grao relative block aspect-[4/5] overflow-hidden rounded-moldura bg-champagne"
+            className="group/painel grao relative block aspect-[4/5] overflow-hidden rounded-moldura bg-champagne"
           >
             <span data-area="camadas" className="absolute -inset-3 block">
               {areas.map((area, indice) => (
@@ -243,7 +260,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
               </span>
               <span className="link-dourado inline-flex shrink-0 items-center gap-2 pb-1 text-sm font-medium">
                 {secaoAreas.verServicos}
-                <IconeSeta className="size-4" />
+                <IconeSeta className="size-4 motion-safe:transition-transform motion-safe:duration-(--dur-rapida) group-hover/painel:translate-x-[3px]" />
               </span>
             </span>
           </Link>

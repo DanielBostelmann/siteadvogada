@@ -38,6 +38,61 @@ export const revelar = (
   );
 
 /**
+ * Revelação por máscara feita só com transform: a janela ([data-mascara=
+ * "janela"]) sobe enquanto a imagem desce na mesma medida, então a foto parece
+ * parada enquanto é descoberta; em seguida ela se aproxima devagar.
+ */
+export const revelarPorMascara = (bloco: Element) => {
+  const janela = bloco.querySelector("[data-mascara='janela']");
+  const imagem = janela?.querySelector("img");
+  const linha = gsap.timeline();
+  linha.to(bloco, { opacity: 1, duration: DURACAO.curta / 2 }, 0);
+  if (!janela || !imagem) return linha;
+
+  linha
+    // y: 0 descarta o translateY(100%) do estado inicial em CSS, que o GSAP
+    // leria como pixels fixos e somaria ao percentual.
+    .fromTo(
+      janela,
+      { y: 0, yPercent: 100 },
+      { y: 0, yPercent: 0, duration: DURACAO.media, ease: CURVA.mascara },
+      0,
+    )
+    .fromTo(
+      imagem,
+      { yPercent: -100 },
+      { yPercent: 0, duration: DURACAO.media, ease: CURVA.mascara },
+      0,
+    )
+    .fromTo(
+      imagem,
+      { scale: 1.06 },
+      { scale: 1, duration: DURACAO.longa, ease: CURVA.entrada },
+      0,
+    );
+  return linha;
+};
+
+/** Um brilho atravessa o elemento uma única vez ([data-brilho-faixa]). */
+export const brilharUmaVez = (elemento: Element) => {
+  const faixa = elemento.querySelector("[data-brilho-faixa]");
+  if (!faixa) return;
+  gsap.fromTo(
+    faixa,
+    { xPercent: -100, opacity: 1 },
+    {
+      xPercent: 400,
+      duration: DURACAO.longa,
+      ease: CURVA.mascara,
+      delay: 0.4,
+      onComplete: () => {
+        gsap.set(faixa, { opacity: 0 });
+      },
+    },
+  );
+};
+
+/**
  * Chama a função uma vez, quando o elemento entra na tela. Usa
  * IntersectionObserver, que não mede o layout no carregamento, ao contrário
  * de um gatilho de rolagem por elemento. `linha` é a altura da tela, de 0

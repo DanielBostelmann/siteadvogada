@@ -213,7 +213,7 @@
    imediato. Usa opacidade, e não visibility, para o conteúdo continuar
    disponível a leitores de tela e ao teclado antes de ser revelado. */
 html[data-movimento="on"] {
-  :is([data-oculto], [data-revelar], [data-palavras], [data-filete]),
+  :is([data-oculto], [data-revelar], [data-palavras], [data-filete], [data-filete-vertical]),
   [data-revelar-grupo]:not([data-revelado]) > *,
   [data-moldura] {
     opacity: 0;
@@ -357,6 +357,369 @@ html[data-abertura="tocar"] .abertura-monograma {
 
   .galeria li:hover img {
     transform: scale(1.04);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Efeitos de interação. Direção: "devagar para revelar, rápido para
+   responder". As entradas ao rolar usam as durações de src/lib/movimento.ts;
+   as respostas a clique, toque e foco usam os tokens abaixo, espelhados em
+   INTERACAO. Tudo anima só transform e opacity, e some com movimento reduzido.
+   --------------------------------------------------------------------------- */
+:root {
+  --dur-toque: 120ms;
+  --dur-rapida: 200ms;
+  --dur-estado: 320ms;
+  --ease-saida: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-mascara: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-toque: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Botão principal: sobe 1 px e ganha uma sombra em camadas, que já existe
+   pronta e só muda de opacidade; o ícone avança 2 px. */
+@utility botao-elevado {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    box-shadow:
+      0 1px 2px color-mix(in oklab, var(--color-grafite) 12%, transparent),
+      0 8px 18px -8px color-mix(in oklab, var(--color-grafite) 35%, transparent),
+      0 20px 40px -20px color-mix(in oklab, var(--color-grafite) 40%, transparent);
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &::after {
+      transition: opacity var(--dur-rapida) var(--ease-saida);
+    }
+
+    & svg {
+      transition: transform var(--dur-rapida) var(--ease-saida);
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Ao pressionar, vale o retorno de botao-pressionavel. */
+    &:hover:active {
+      transform: scale(0.98);
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+
+    &:hover svg {
+      transform: translateX(2px);
+    }
+  }
+}
+
+/* Botão de contorno: no hover, uma camada champagne preenche o botão da
+   esquerda para a direita, como os filetes da marca. */
+@utility botao-varredura {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: color-mix(in oklab, var(--color-champagne) 60%, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @media (hover: hover) {
+    &:hover::before {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &::before {
+      transition: transform var(--dur-estado) var(--ease-mascara);
+    }
+  }
+}
+
+/* Cartões das áreas no celular: encolhem um pouco enquanto o dedo está neles. */
+@utility toque-cartao {
+  @media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
+    transition: transform var(--dur-toque) var(--ease-toque);
+
+    &:active {
+      transform: scale(0.99);
+    }
+  }
+}
+
+/* Link com o texto num <span>: o sublinhado fica colado ao texto mesmo com a
+   área de toque de 44 px, e se desenha no hover e no foco. */
+@utility link-sublinhado-interno {
+  & > span {
+    position: relative;
+  }
+
+  & > span::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -2px;
+    height: 1px;
+    background-color: var(--color-dourado);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  &:hover > span::after,
+  &:focus-visible > span::after {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    & > span::after {
+      transition: transform 0.6s var(--ease-mascara);
+    }
+  }
+}
+
+/* Entrada de um estado novo (mensagem de sucesso, erro, "Copiado"). */
+@utility entrada-estado {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: entrada-estado var(--dur-estado) var(--ease-saida) both;
+  }
+}
+
+@keyframes entrada-estado {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Filete da mensagem de sucesso: desenha-se da esquerda depois da entrada. */
+@utility filete-desenhado {
+  transform-origin: left;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: desenhar-filete 0.6s var(--ease-mascara) 0.2s both;
+  }
+}
+
+@keyframes desenhar-filete {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Envio do formulário: filete que percorre a base do botão enquanto envia. */
+@utility filete-carregando {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 40%;
+    background-color: var(--color-dourado);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &::after {
+      animation: percorrer-filete 1.1s var(--ease-mascara) infinite;
+    }
+  }
+}
+
+@keyframes percorrer-filete {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+
+/* Caixa de consentimento: a marcação entra com escala. */
+@media (prefers-reduced-motion: no-preference) {
+  input[type="checkbox"]:checked {
+    animation: marcar 200ms var(--ease-saida);
+  }
+}
+
+@keyframes marcar {
+  from {
+    transform: scale(0.85);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Indicador "Role": um segmento claro desce pela linha dourada três vezes. */
+.indicador-rolagem {
+  position: relative;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .indicador-rolagem::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 35%;
+    background-color: var(--color-branco);
+    opacity: 0;
+    animation: descer-indicador 2.4s var(--ease-mascara) 1.6s 3 both;
+  }
+
+  html[data-abertura="tocar"] .indicador-rolagem::after {
+    animation-delay: 2.8s;
+  }
+}
+
+@keyframes descer-indicador {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  25%,
+  75% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(290%);
+  }
+}
+
+/* Revelação por máscara feita só com transform: a janela sobe e a imagem
+   desce na mesma medida, então a foto parece parada enquanto é descoberta. */
+html[data-movimento="on"] [data-revelar-mascara] {
+  opacity: 0;
+}
+
+html[data-movimento="on"] [data-revelar-mascara] [data-mascara="janela"] {
+  transform: translateY(100%);
+}
+
+/* Progresso de leitura nas páginas internas e da galeria no celular. Sem
+   suporte a animação ligada à rolagem, os filetes simplesmente não aparecem. */
+.progresso-leitura,
+.progresso-galeria {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .progresso-leitura {
+    display: block;
+    transform-origin: left;
+    animation: crescer-progresso linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  /* Só no celular: no computador a galeria é uma grade, sem rolagem lateral. */
+  @media (max-width: 1023px) {
+    .progresso-galeria {
+      display: block;
+    }
+  }
+
+  .progresso-galeria > span {
+    transform-origin: left;
+    animation: crescer-galeria linear both;
+    animation-timeline: --galeria;
+  }
+
+  .galeria {
+    scroll-timeline: --galeria inline;
+  }
+}
+
+@keyframes crescer-progresso {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes crescer-galeria {
+  from {
+    transform: scaleX(0.34);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Troca entre páginas: esmaecimento curto. O cabeçalho fica parado. */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.pagina) {
+  animation: 180ms ease-in both sumir-pagina;
+}
+
+::view-transition-new(.pagina) {
+  animation: 260ms ease-out 80ms both surgir-pagina;
+}
+
+::view-transition-group(cabecalho) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(cabecalho) {
+  display: none;
+}
+
+::view-transition-new(cabecalho) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+@keyframes sumir-pagina {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes surgir-pagina {
+  from {
+    opacity: 0;
   }
 }
 

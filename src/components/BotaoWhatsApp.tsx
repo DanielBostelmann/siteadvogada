@@ -12,8 +12,8 @@ type BotaoWhatsAppProps = {
 };
 
 const ESTILOS: Record<Variante, string> = {
-  preenchido: "bg-grafite text-branco hover:bg-grafite/90",
-  contorno: "border border-dourado text-grafite hover:bg-champagne/40",
+  preenchido: "botao-elevado bg-grafite text-branco hover:bg-grafite/90",
+  contorno: "botao-varredura border border-dourado text-grafite",
 };
 
 export const BotaoWhatsApp = ({

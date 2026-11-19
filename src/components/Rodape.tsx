@@ -7,9 +7,10 @@ import { areas } from "@/content/areas";
 
 const TITULO_COLUNA =
   "text-[0.8125rem] font-medium tracking-[0.2em] text-dourado uppercase";
-// min-h-11: área de toque de 44 px (PRD, seção 9).
+// min-h-11: área de toque de 44 px (PRD, seção 9). O texto fica num <span>
+// para o sublinhado dourado colar nele, e não na base da área de toque.
 const LINK =
-  "inline-flex min-h-11 min-w-11 items-center text-base text-off-white/80 hover:text-off-white";
+  "link-sublinhado-interno inline-flex min-h-11 min-w-11 items-center text-base text-off-white/80 hover:text-off-white";
 
 const AnoCorrente = async () => {
   "use cache";
@@ -21,7 +22,10 @@ export const Rodape = () => (
   <footer className="bg-grafite text-off-white">
     {/* Duas colunas até 1280 px; a partir daí, quatro colunas com a largura
         do próprio conteúdo, para nenhum item quebrar linha. */}
-    <div className="container-site grid gap-10 py-12 sm:grid-cols-2 lg:py-20 xl:grid-cols-[repeat(4,auto)] xl:justify-between xl:gap-x-12">
+    <div
+      data-revelar-grupo
+      className="container-site grid gap-10 py-12 sm:grid-cols-2 lg:py-20 xl:grid-cols-[repeat(4,auto)] xl:justify-between xl:gap-x-12"
+    >
       <div className="sm:col-span-2 xl:col-span-1">
         <Image
           src="/logo/logo-completa.png"
@@ -45,7 +49,7 @@ export const Rodape = () => (
           {navegacao.map((item) => (
             <li key={item.href}>
               <Link href={item.href} className={LINK}>
-                {item.rotulo}
+                <span>{item.rotulo}</span>
               </Link>
             </li>
           ))}
@@ -58,7 +62,7 @@ export const Rodape = () => (
           {areas.map((area) => (
             <li key={area.slug}>
               <Link href={`/areas/${area.slug}`} className={LINK}>
-                {area.nome}
+                <span>{area.nome}</span>
               </Link>
             </li>
           ))}
@@ -70,12 +74,12 @@ export const Rodape = () => (
         <ul className="mt-4">
           <li>
             <a href={`mailto:${site.email}`} className={`${LINK} break-all`}>
-              {site.email}
+              <span>{site.email}</span>
             </a>
           </li>
           <li>
             <a href={`tel:${site.telefone.tel}`} className={LINK}>
-              {site.telefone.exibicao}
+              <span>{site.telefone.exibicao}</span>
             </a>
           </li>
         </ul>
@@ -89,9 +93,9 @@ export const Rodape = () => (
         </p>
         <Link
           href="/politica-de-privacidade"
-          className="inline-flex min-h-11 items-center hover:text-off-white"
+          className="link-sublinhado-interno inline-flex min-h-11 items-center hover:text-off-white"
         >
-          Política de Privacidade
+          <span>Política de Privacidade</span>
         </Link>
       </div>
     </div>

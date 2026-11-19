@@ -9,7 +9,9 @@ import { RetratoCena } from "./movimento/RetratoCena";
 
 export const Advogada = () => (
   <section id="advogada" className="bg-branco secao">
-    <div className="container-site">
+    {/* timeline-scope: o filete de progresso, irmão da galeria, acompanha a
+        rolagem lateral dela. */}
+    <div className="container-site [timeline-scope:--galeria]">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
         <RetratoCena className="lg:col-span-5">
           <div className="relative mr-5 mb-5 ml-5 max-w-md lg:max-w-none">
@@ -70,6 +72,10 @@ export const Advogada = () => (
           </li>
         ))}
       </ul>
+      {/* Celular: filete que mostra quanto da galeria já passou. */}
+      <div aria-hidden="true" className="progresso-galeria mt-4 h-px bg-grafite/15 lg:hidden">
+        <span className="block h-full bg-dourado" />
+      </div>
     </div>
   </section>
 );

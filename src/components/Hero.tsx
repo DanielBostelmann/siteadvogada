@@ -93,7 +93,7 @@ export const Hero = () => (
             className="rotulo absolute left-1/2 hidden -translate-x-1/2 items-center gap-3 sm:flex"
           >
             Role
-            <span className="block h-10 w-px bg-dourado" />
+            <span className="indicador-rolagem block h-10 w-px bg-dourado" />
           </p>
         </div>
 
@@ -109,7 +109,7 @@ export const Hero = () => (
               cena="cena"
               className="translate-x-4 translate-y-4 lg:translate-x-5 lg:translate-y-5"
             />
-            <div className="size-full">
+            <div data-hero="foto" className="size-full">
               <Foto
                 src={fotos.hero.src}
                 alt={fotos.hero.alt}

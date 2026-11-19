@@ -6,11 +6,12 @@ import { FaixaIdentificacao } from "@/components/FaixaIdentificacao";
 import { Hero } from "@/components/Hero";
 import { Interludio } from "@/components/Interludio";
 import { Abertura } from "@/components/movimento/Abertura";
+import { TransicaoDePagina } from "@/components/TransicaoDePagina";
 import { dadosEstruturados, serializarJsonLd } from "@/lib/seo";
 
 export default function PaginaInicial() {
   return (
-    <>
+    <TransicaoDePagina>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializarJsonLd(dadosEstruturados) }}
@@ -23,6 +24,6 @@ export default function PaginaInicial() {
       <Interludio />
       <Advogada />
       <Contato />
-    </>
+    </TransicaoDePagina>
   );
 }

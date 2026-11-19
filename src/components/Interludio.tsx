@@ -13,7 +13,11 @@ export const Interludio = () => (
       {/* Foto da Dra. com véu grafite só na metade junto ao texto: no celular,
           ela ocupa a parte de baixo da seção e o véu funde o topo; no
           computador, ocupa a metade direita e o véu cobre a metade esquerda. */}
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-[58%] lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-1/2">
+      {/* No computador, a foto corre devagar por trás dos véus na rolagem. */}
+      <div
+        data-paralaxe-imagem
+        className="absolute inset-x-0 bottom-0 -z-10 h-[58%] overflow-hidden lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-1/2"
+      >
         <Image
           src={fotos.interludio.src}
           alt={fotos.interludio.alt}

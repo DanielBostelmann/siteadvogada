@@ -19,6 +19,28 @@ export const ESCALONAMENTO = {
   traco: 0.3,
 } as const;
 
+/**
+ * Respostas a clique, toque e foco: curtas e precisas. Espelham os tokens
+ * --dur-toque, --dur-rapida e --dur-estado de globals.css.
+ */
+export const INTERACAO = {
+  toque: 0.12,
+  rapida: 0.2,
+  estado: 0.32,
+} as const;
+
+/** Deslocamentos máximos dos efeitos de profundidade, em pixels ou %. */
+export const PROFUNDIDADE = {
+  /** Foto do hero acompanhando o cursor. */
+  fotoPx: 6,
+  /** Moldura do hero, no sentido oposto ao da foto. */
+  molduraPx: 10,
+  /** Bloco champagne atrás da foto do escritório, contra a foto. */
+  blocoPercentual: 4,
+  /** Foto do interlúdio por trás dos véus. */
+  imagemPercentual: 4,
+} as const;
+
 export const ABERTURA = {
   /** Tempo da tela de carregamento até a cortina começar a abrir. */
   duracao: 1.2,

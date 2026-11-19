@@ -39,13 +39,16 @@ export const Escritorio = () => {
             data-paralaxe
             className="relative ml-4 max-w-sm lg:ml-5 lg:max-w-none"
           >
+            {/* Bloco champagne: no computador, corre contra a foto na rolagem. */}
             <span
               aria-hidden="true"
               data-revelar
+              data-paralaxe-oposta
               className="absolute inset-0 -translate-x-4 translate-y-4 rounded-moldura bg-champagne lg:-translate-x-5 lg:translate-y-5"
             />
-            <div data-revelar>
+            <div data-revelar-mascara>
               <Foto
+                mascara
                 src={fotos.escritorio.src}
                 alt={fotos.escritorio.alt}
                 sizes="(min-width: 1024px) 28vw, 80vw"
