@@ -89,7 +89,7 @@ export const FormularioContato = () => {
       <div
         id="formulario"
         role="status"
-        className="entrada-estado rounded-moldura border border-grafite/10 bg-branco p-8 sm:p-12"
+        className="entrada-estado rounded-moldura bg-branco p-6 shadow-(--sombra-cartao) sm:p-10"
       >
         <span aria-hidden="true" className="filete-desenhado block h-px w-12 bg-dourado" />
         <p className="mt-8 font-serif text-3xl leading-tight">
@@ -107,7 +107,7 @@ export const FormularioContato = () => {
       noValidate
       aria-label="Formulário de contato"
       data-revelar-grupo
-      className="rounded-moldura border border-grafite/10 bg-branco p-6 shadow-[0_24px_60px_-40px] shadow-grafite/25 sm:p-10"
+      className="rounded-moldura bg-branco p-6 shadow-(--sombra-cartao) sm:p-10"
     >
       {estado.status === "erro" ? (
         <p
@@ -256,9 +256,18 @@ export const FormularioContato = () => {
       <button
         type="submit"
         disabled={enviando}
-        className="botao-pressionavel botao-elevado mt-9 inline-flex min-h-12 w-full items-center justify-center overflow-hidden rounded-moldura bg-grafite px-8 text-sm font-medium tracking-wide text-branco hover:bg-grafite/90 disabled:opacity-60 sm:w-auto"
+        className="botao-pressionavel botao-elevado mt-9 inline-flex min-h-12 w-full items-center justify-center overflow-hidden rounded-moldura bg-grafite px-8 text-sm font-medium tracking-wide text-branco hover:bg-grafite/90 disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
       >
-        {enviando ? "Enviando…" : "Enviar mensagem"}
+        {/* Os dois rótulos ocupam a mesma célula: a largura do botão não muda
+            quando o texto troca para "Enviando…". */}
+        <span className="grid">
+          <span className={`col-start-1 row-start-1 ${enviando ? "invisible" : ""}`}>
+            Enviar mensagem
+          </span>
+          <span className={`col-start-1 row-start-1 ${enviando ? "" : "invisible"}`}>
+            Enviando…
+          </span>
+        </span>
         {/* Enquanto envia, um filete percorre a base do botão. */}
         {enviando ? <span aria-hidden="true" className="filete-carregando" /> : null}
       </button>

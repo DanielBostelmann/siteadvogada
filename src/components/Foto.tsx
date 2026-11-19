@@ -41,7 +41,7 @@ export const Foto = ({
 
   return (
     <div
-      className={`grao relative overflow-hidden rounded-moldura bg-champagne ${className}`}
+      className={`grao contorno-foto relative overflow-hidden rounded-moldura bg-champagne ${className}`}
     >
       {mascara ? (
         <span data-mascara="janela" className="absolute inset-0 block overflow-hidden">

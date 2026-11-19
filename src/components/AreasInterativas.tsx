@@ -158,7 +158,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
                     por máscara ao entrar na tela. */}
                 <span
                   data-revelar-mascara
-                  className="grao relative block aspect-[4/3] overflow-hidden rounded-moldura bg-champagne lg:hidden"
+                  className="grao contorno-foto relative block aspect-[4/3] overflow-hidden rounded-moldura bg-champagne lg:hidden"
                 >
                   <span data-mascara="janela" className="absolute inset-0 block overflow-hidden">
                     <Image
@@ -223,7 +223,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
             href={`/areas/${areaAtiva.slug}`}
             tabIndex={-1}
             data-area="painel"
-            className="group/painel grao relative block aspect-[4/5] overflow-hidden rounded-moldura bg-champagne"
+            className="group/painel grao contorno-foto relative block aspect-[4/5] overflow-hidden rounded-moldura bg-champagne"
           >
             <span data-area="camadas" className="absolute -inset-3 block">
               {areas.map((area, indice) => (
@@ -251,7 +251,7 @@ export const AreasInterativas = ({ areas }: AreasInterativasProps) => {
             />
             <span className="absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-6 p-7 text-branco">
               <span>
-                <span className="block text-[0.8125rem] font-medium tracking-[0.2em] text-champagne">
+                <span className="block text-[0.8125rem] font-medium tracking-[0.2em] text-champagne tabular-nums">
                   {areaAtiva.numero}
                 </span>
                 <span className="mt-2 block font-serif text-3xl leading-tight">

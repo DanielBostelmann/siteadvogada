@@ -29,17 +29,17 @@ export const BotaoCopiar = ({ valor, descricao }: BotaoCopiarProps) => {
       className="botao-pressionavel inline-flex size-11 shrink-0 items-center justify-center rounded-moldura border border-grafite/20 text-xs font-medium tracking-[0.12em] text-grafite uppercase hover:border-dourado sm:w-auto sm:min-w-20 sm:px-3"
     >
       {/* No celular só o ícone, para o e-mail caber na mesma linha. Os dois
-          ícones ficam sobrepostos e se cruzam: o de confirmação entra com
-          escala de 0,8 para 1. */}
+          ícones ficam sobrepostos e se cruzam: escala de 0,25 para 1 e
+          opacidade, em 300 ms e sem ultrapassar. */}
       <span aria-hidden="true" className="grid sm:hidden">
         <IconeCopiar
-          className={`col-start-1 row-start-1 size-5 motion-safe:transition-[opacity,scale] motion-safe:duration-(--dur-rapida) motion-safe:ease-(--ease-saida) ${
-            copiado ? "scale-80 opacity-0" : "scale-100 opacity-100"
+          className={`col-start-1 row-start-1 size-5 motion-safe:transition-[opacity,scale] motion-safe:duration-300 motion-safe:ease-(--ease-toque) ${
+            copiado ? "scale-25 opacity-0" : "scale-100 opacity-100"
           }`}
         />
         <IconeConfirmado
-          className={`col-start-1 row-start-1 size-5 text-dourado-texto motion-safe:transition-[opacity,scale] motion-safe:duration-(--dur-rapida) motion-safe:ease-(--ease-saida) ${
-            copiado ? "scale-100 opacity-100" : "scale-80 opacity-0"
+          className={`col-start-1 row-start-1 size-5 text-dourado-texto motion-safe:transition-[opacity,scale] motion-safe:duration-300 motion-safe:ease-(--ease-toque) ${
+            copiado ? "scale-100 opacity-100" : "scale-25 opacity-0"
           }`}
         />
       </span>

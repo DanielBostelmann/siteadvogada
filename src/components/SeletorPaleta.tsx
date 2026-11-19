@@ -45,7 +45,7 @@ export const SeletorPaleta = () => {
     <div
       role="group"
       aria-label="Prévia de paletas de cores"
-      className="fixed bottom-4 left-4 z-30 flex items-center gap-1 rounded-full border border-grafite/15 bg-branco/90 p-1 text-grafite shadow-[0_10px_30px_-12px] shadow-grafite/25 backdrop-blur"
+      className="fixed bottom-4 left-4 z-30 flex items-center gap-1 rounded-full bg-branco/90 p-1 text-grafite shadow-(--sombra-cartao) backdrop-blur"
     >
       <span className="hidden px-3 text-xs font-medium text-grafite/75 sm:inline">Paleta</span>
       {PALETAS.map((paleta) => (
@@ -55,7 +55,7 @@ export const SeletorPaleta = () => {
           aria-pressed={ativa === paleta.id}
           title={paleta.nome}
           onClick={() => aplicar(paleta.id)}
-          className="flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full px-2 text-xs font-medium aria-pressed:bg-grafite/10 sm:px-3"
+          className="botao-pressionavel flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full px-2 text-xs font-medium aria-pressed:bg-grafite/10 sm:px-3"
         >
           <span
             aria-hidden="true"

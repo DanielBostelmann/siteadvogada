@@ -179,15 +179,16 @@
   }
 }
 
-/* Botões: escala de 0,98 ao pressionar. */
+/* Botões: escala de 0,96 ao pressionar (nunca abaixo de 0,95), só quando
+   habilitados. */
 @utility botao-pressionavel {
   @media (prefers-reduced-motion: no-preference) {
     transition-property: transform, color, background-color, border-color;
     transition-duration: 200ms;
     transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
 
-    &:active {
-      transform: scale(0.98);
+    &:active:not(:disabled) {
+      transform: scale(0.96);
     }
   }
 }
@@ -373,6 +374,24 @@ html[data-abertura="tocar"] .abertura-monograma {
   --ease-saida: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-mascara: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-toque: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Superfícies: sombra em camadas no lugar de borda (anel de 1 px, leve
+     elevação e profundidade). Cartões somam a sombra ambiente longa. */
+  --sombra-borda:
+    0 0 0 1px rgb(0 0 0 / 0.06),
+    0 1px 2px -1px rgb(0 0 0 / 0.06),
+    0 2px 4px 0 rgb(0 0 0 / 0.04);
+  --sombra-cartao:
+    var(--sombra-borda),
+    0 24px 60px -40px rgb(0 0 0 / 0.25);
+  /* Contorno neutro das fotos: preto puro a 10% no claro, branco no escuro. */
+  --contorno-foto: rgb(0 0 0 / 0.1);
+}
+
+/* Contorno de 1 px por dentro das fotos, que não altera o tamanho delas. */
+@utility contorno-foto {
+  outline: 1px solid var(--contorno-foto);
+  outline-offset: -1px;
 }
 
 /* Botão principal: sobe 1 px e ganha uma sombra em camadas, que já existe
@@ -402,20 +421,20 @@ html[data-abertura="tocar"] .abertura-monograma {
       transition: transform var(--dur-rapida) var(--ease-saida);
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       transform: translateY(-1px);
     }
 
     /* Ao pressionar, vale o retorno de botao-pressionavel. */
-    &:hover:active {
-      transform: scale(0.98);
+    &:hover:active:not(:disabled) {
+      transform: scale(0.96);
     }
 
-    &:hover::after {
+    &:hover:not(:disabled)::after {
       opacity: 1;
     }
 
-    &:hover svg {
+    &:hover:not(:disabled) svg {
       transform: translateX(2px);
     }
   }
@@ -451,13 +470,14 @@ html[data-abertura="tocar"] .abertura-monograma {
   }
 }
 
-/* Cartões das áreas no celular: encolhem um pouco enquanto o dedo está neles. */
+/* Cartões das áreas no celular: encolhem enquanto o dedo está neles. Em 0,98,
+   e não nos 0,96 dos botões: num cartão de tela cheia, 4% vira um salto. */
 @utility toque-cartao {
   @media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
     transition: transform var(--dur-toque) var(--ease-toque);
 
     &:active {
-      transform: scale(0.99);
+      transform: scale(0.98);
     }
   }
 }
@@ -750,6 +770,11 @@ html[data-paleta="noite"] {
   --color-dourado-texto: #d9bc8a;
   --color-grafite: #e6e3dc;
 }
+html[data-paleta="noite"] {
+  --sombra-borda: 0 0 0 1px rgb(255 255 255 / 0.08);
+  --sombra-cartao: 0 0 0 1px rgb(255 255 255 / 0.08);
+  --contorno-foto: rgb(255 255 255 / 0.1);
+}
 html[data-paleta="noite"] :is(section, footer).bg-grafite {
   --color-grafite: #060c18;
   --color-off-white: #f1ece3;
@@ -770,6 +795,7 @@ html[data-paleta="grafite"] {
   --color-grafite: #292929;
 }
 html[data-paleta="grafite"] :is(#inicio, header.fixed) {
+  --contorno-foto: rgb(255 255 255 / 0.1);
   --color-branco: #292929;
   --color-off-white: #313132;
   --color-champagne: #3a3a3b;

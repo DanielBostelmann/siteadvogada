@@ -113,7 +113,7 @@ export const Cabecalho = () => {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="link-dourado link-dourado-oculto py-2 text-sm text-grafite"
+                  className="link-dourado link-dourado-oculto py-2 text-sm text-grafite before:absolute before:inset-x-0 before:-inset-y-1.5"
                 >
                   {item.rotulo}
                 </Link>
@@ -131,7 +131,7 @@ export const Cabecalho = () => {
             aria-expanded={menuAberto}
             aria-controls="menu-principal"
             onClick={() => setMenuAberto((aberto) => !aberto)}
-            className="relative z-50 inline-flex size-11 items-center justify-center xl:hidden"
+            className="botao-pressionavel relative z-50 inline-flex size-11 items-center justify-center xl:hidden"
           >
             <span className="sr-only">
               {menuAberto ? "Fechar menu" : "Abrir menu"}
@@ -148,15 +148,18 @@ export const Cabecalho = () => {
         </div>
       </div>
 
-      {/* Menu do celular: o painel desce do topo e os links entram em
-          sequência; ao fechar, saem na ordem inversa. Fechado, fica inerte
-          (fora do teclado e dos leitores de tela). */}
+      {/* Menu do celular: o painel desce do topo e os links entram de baixo,
+          em sequência; ao fechar, saem para cima, mais rápido e na ordem
+          inversa. Fechado, fica inerte (fora do teclado e dos leitores de tela). */}
       <div
         id="menu-principal"
         inert={!menuAberto}
-        data-aberto={menuAberto}
-        className={`group/menu fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-off-white motion-safe:transition-[opacity,translate,visibility] motion-safe:duration-(--dur-estado) motion-safe:ease-(--ease-saida) xl:hidden ${
-          menuAberto ? "visible opacity-100" : "invisible -translate-y-4 opacity-0"
+        // Entrada com @starting-style (starting:) e saída que termina antes do
+        // display: none (transition-discrete). Sem suporte, abre e fecha direto.
+        className={`fixed inset-0 z-40 overflow-y-auto overscroll-contain bg-off-white motion-safe:transition-[opacity,translate,display] motion-safe:transition-discrete xl:hidden ${
+          menuAberto
+            ? "translate-y-0 opacity-100 starting:-translate-y-3 starting:opacity-0 motion-safe:duration-(--dur-estado) motion-safe:ease-(--ease-saida)"
+            : "hidden -translate-y-3 opacity-0 motion-safe:delay-80 motion-safe:duration-150 motion-safe:ease-in"
         }`}
       >
         <nav
@@ -173,7 +176,11 @@ export const Cabecalho = () => {
                     "--ordem-inversa": ultimoItem - indice,
                   } as React.CSSProperties
                 }
-                className="translate-y-3 border-b border-grafite/10 opacity-0 [transition-delay:calc(var(--ordem-inversa)*25ms)] group-data-[aberto=true]/menu:translate-y-0 group-data-[aberto=true]/menu:opacity-100 group-data-[aberto=true]/menu:[transition-delay:calc(80ms+var(--ordem)*40ms)] motion-safe:transition-[opacity,translate] motion-safe:duration-(--dur-estado) motion-safe:ease-(--ease-saida)"
+                className={`border-b border-grafite/10 motion-safe:transition-[opacity,translate] ${
+                  menuAberto
+                    ? "translate-y-0 opacity-100 starting:translate-y-3 starting:opacity-0 motion-safe:duration-(--dur-estado) motion-safe:ease-(--ease-saida) motion-safe:[transition-delay:calc(80ms+var(--ordem)*60ms)]"
+                    : "-translate-y-3 opacity-0 motion-safe:duration-150 motion-safe:ease-in motion-safe:[transition-delay:calc(var(--ordem-inversa)*20ms)]"
+                }`}
               >
                 <Link
                   href={item.href}
@@ -185,7 +192,13 @@ export const Cabecalho = () => {
               </li>
             ))}
           </ul>
-          <div className="flex flex-col gap-5 opacity-0 group-data-[aberto=true]/menu:opacity-100 group-data-[aberto=true]/menu:delay-300 motion-safe:transition-opacity motion-safe:duration-(--dur-estado)">
+          <div
+            className={`flex flex-col gap-5 motion-safe:transition-opacity ${
+              menuAberto
+                ? "opacity-100 starting:opacity-0 motion-safe:delay-300 motion-safe:duration-(--dur-estado)"
+                : "opacity-0 motion-safe:duration-150"
+            }`}
+          >
             <BotaoWhatsApp>{hero.botaoWhatsApp}</BotaoWhatsApp>
             <p className="rotulo">
               {site.nome} · {site.oab}
