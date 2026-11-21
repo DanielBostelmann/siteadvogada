@@ -3,6 +3,12 @@
 .claude/skills/onetake/**/*.mp4
 .claude/skills/onetake/**/*.gif
 
+# Originais enviados pela cliente (fotos, imagens das áreas e logomarca). Ficam
+# fora do repositório para o envio caber no limite de 32 MB da StayCloud; o site
+# usa as cópias otimizadas de src/assets e public. Para recuperar os originais:
+#   git checkout 1a0c1dd -- assets-cliente
+/assets-cliente/
+
 # Credenciais da HostGator criadas pela skill site-de-10k (login do cPanel). Nunca commitar.
 hostgator.env
 

@@ -32,3 +32,17 @@ pela cliente, em 4:5, sem rostos nem texto. Estão publicadas em
 Arte original da cliente (JPG dourado sobre fundo preto), em
 `assets-cliente/logo/`. As versões em `public/logo/` foram geradas por
 `scripts/preparar-imagens.py`, que apenas recorta o fundo preto.
+
+## Onde ficam os originais
+
+Os originais de `assets-cliente/` (fotos, imagens das áreas e logomarca) saíram
+do repositório para o envio à StayCloud caber no limite de 32 MB do plano. O site
+usa apenas as cópias otimizadas de `src/assets/` e `public/`. Os originais
+continuam no histórico do Git e voltam para a pasta com:
+
+```bash
+git checkout 1a0c1dd -- assets-cliente
+```
+
+A pasta está no `.gitignore`: dá para mantê-la no computador e rodar
+`scripts/preparar-imagens.py` normalmente, sem que ela volte ao repositório.
